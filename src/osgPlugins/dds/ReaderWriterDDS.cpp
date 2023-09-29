@@ -258,7 +258,11 @@ struct DXT1TexelsBlock
 * FOURCC codes for 3dc compressed-texture pixel formats
 */
 #define FOURCC_ATI1  (MAKEFOURCC('A','T','I','1'))
+#define FOURCC_BC4U  (MAKEFOURCC('B','C','4','U'))
+#define FOURCC_BC4S  (MAKEFOURCC('B','C','4','S'))
 #define FOURCC_ATI2  (MAKEFOURCC('A','T','I','2'))
+#define FOURCC_BC5U  (MAKEFOURCC('B','C','5','U'))
+#define FOURCC_BC5S  (MAKEFOURCC('B','C','5','S'))
 
 /*
 * FOURCC codes for DX10 files
@@ -517,10 +521,30 @@ osg::Image* ReadDDSFile(std::istream& _istream, bool flipDDSRead)
             internalFormat = GL_COMPRESSED_RED_RGTC1_EXT;
             pixelFormat    = GL_COMPRESSED_RED_RGTC1_EXT;
             break;
+        case FOURCC_BC4U:
+            OSG_INFO << "ReadDDSFile info : format = BC4U" << std::endl;
+            internalFormat = GL_COMPRESSED_RED_RGTC1_EXT;
+            pixelFormat    = GL_COMPRESSED_RED_RGTC1_EXT;
+            break;
+        case FOURCC_BC4S:
+            OSG_INFO << "ReadDDSFile info : format = BC4S" << std::endl;
+            internalFormat = GL_COMPRESSED_SIGNED_RED_RGTC1_EXT;
+            pixelFormat    = GL_COMPRESSED_SIGNED_RED_RGTC1_EXT;
+            break;
         case FOURCC_ATI2:
             OSG_INFO << "ReadDDSFile info : format = ATI2" << std::endl;
             internalFormat = GL_COMPRESSED_RED_GREEN_RGTC2_EXT;
             pixelFormat    = GL_COMPRESSED_RED_GREEN_RGTC2_EXT;
+            break;
+        case FOURCC_BC5U:
+            OSG_INFO << "ReadDDSFile info : format = BC5U" << std::endl;
+            internalFormat = GL_COMPRESSED_RED_GREEN_RGTC2_EXT;
+            pixelFormat    = GL_COMPRESSED_RED_GREEN_RGTC2_EXT;
+            break;
+        case FOURCC_BC5S:
+            OSG_INFO << "ReadDDSFile info : format = BC5S" << std::endl;
+            internalFormat = GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT;
+            pixelFormat    = GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT;
             break;
         case 0x00000024: // A16B16G16R16
             OSG_INFO << "ReadDDSFile info : format = A16B16G16R16" << std::endl;
@@ -768,6 +792,26 @@ osg::Image* ReadDDSFile(std::istream& _istream, bool flipDDSRead)
                     internalFormat = GL_R16I;
                     pixelFormat    = GL_RED;
                     dataType       = GL_SHORT;
+                    break;
+
+                case OSG_DXGI_FORMAT_BC4_UNORM:
+                    internalFormat = GL_COMPRESSED_RED_RGTC1_EXT;
+                    pixelFormat    = GL_COMPRESSED_RED_RGTC1_EXT;
+                    break;
+
+                case OSG_DXGI_FORMAT_BC4_SNORM:
+                    internalFormat = GL_COMPRESSED_SIGNED_RED_RGTC1_EXT;
+                    pixelFormat    = GL_COMPRESSED_SIGNED_RED_RGTC1_EXT;
+                    break;
+
+                case OSG_DXGI_FORMAT_BC5_UNORM:
+                    internalFormat = GL_COMPRESSED_RED_GREEN_RGTC2_EXT;
+                    pixelFormat    = GL_COMPRESSED_RED_GREEN_RGTC2_EXT;
+                    break;
+
+                case OSG_DXGI_FORMAT_BC5_SNORM:
+                    internalFormat = GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT;
+                    pixelFormat    = GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT;
                     break;
 
                 default:
