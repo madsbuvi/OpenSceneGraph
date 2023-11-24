@@ -21,7 +21,7 @@ static bool readRestartIndex( osgDB::InputStream& is, osg::PrimitiveRestartIndex
 
 static bool writeRestartIndex( osgDB::OutputStream& os, const osg::PrimitiveRestartIndex& attr )
 {
-    os << attr.getRestartIndex() << std::endl;
+    os << attr.getRestartIndex() << osgDB::OutputStream::Endl{};
     return true;
 }
 

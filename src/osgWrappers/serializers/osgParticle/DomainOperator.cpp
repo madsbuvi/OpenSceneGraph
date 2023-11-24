@@ -44,7 +44,7 @@ static bool readDomains( osgDB::InputStream& is, osgParticle::DomainOperator& dp
 static bool writeDomains( osgDB::OutputStream& os, const osgParticle::DomainOperator& dp )
 {
     unsigned int size = dp.getNumDomains();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         const osgParticle::DomainOperator::Domain& domain = dp.getDomain(i);
@@ -53,35 +53,35 @@ static bool writeDomains( osgDB::OutputStream& os, const osgParticle::DomainOper
         switch (domain.type)
         {
         case osgParticle::DomainOperator::Domain::POINT_DOMAIN:
-            os << std::string("POINT") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("POINT") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         case osgParticle::DomainOperator::Domain::LINE_DOMAIN:
-            os << std::string("LINE") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("LINE") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         case osgParticle::DomainOperator::Domain::TRI_DOMAIN:
-            os << std::string("TRIANGLE") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("TRIANGLE") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         case osgParticle::DomainOperator::Domain::RECT_DOMAIN:
-            os << std::string("RECTANGLE") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("RECTANGLE") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         case osgParticle::DomainOperator::Domain::PLANE_DOMAIN:
-            os << std::string("PLANE") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("PLANE") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         case osgParticle::DomainOperator::Domain::SPHERE_DOMAIN:
-            os << std::string("SPHERE") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("SPHERE") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         case osgParticle::DomainOperator::Domain::BOX_DOMAIN:
-            os << std::string("BOX") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("BOX") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         case osgParticle::DomainOperator::Domain::DISK_DOMAIN:
-            os << std::string("DISK") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("DISK") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         default:
-            os << std::string("UNDEFINED") << os.BEGIN_BRACKET << std::endl; break;
+            os << std::string("UNDEFINED") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; break;
         }
 
-        os << os.PROPERTY("Plane") << domain.plane << std::endl;
-        os << os.PROPERTY("Vertices1") << domain.v1 << std::endl;
-        os << os.PROPERTY("Vertices2") << domain.v2 << std::endl;
-        os << os.PROPERTY("Vertices3") << domain.v3 << std::endl;
-        os << os.PROPERTY("Basis1") << domain.s1 << std::endl;
-        os << os.PROPERTY("Basis2") << domain.s2 << std::endl;
-        os << os.PROPERTY("Factors") << domain.r1 << domain.r2 << std::endl;
-        os << os.END_BRACKET << std::endl;
+        os << os.PROPERTY("Plane") << domain.plane << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Vertices1") << domain.v1 << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Vertices2") << domain.v2 << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Vertices3") << domain.v3 << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Basis1") << domain.s1 << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Basis2") << domain.s2 << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Factors") << domain.r1 << domain.r2 << osgDB::OutputStream::Endl{};
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

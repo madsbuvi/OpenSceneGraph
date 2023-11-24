@@ -88,34 +88,34 @@ bool readParticle( osgDB::InputStream& is, osgParticle::Particle& p )
 
 bool writeParticle( osgDB::OutputStream& os, const osgParticle::Particle& p )
 {
-    os << os.BEGIN_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
 
-    os << os.PROPERTY("Shape"); writeShapeValue( os, (int)p.getShape() ); os << std::endl;
+    os << os.PROPERTY("Shape"); writeShapeValue( os, (int)p.getShape() ); os << osgDB::OutputStream::Endl{};
 
-    os << os.PROPERTY("LifeTime") << p.getLifeTime() << std::endl;
-    os << os.PROPERTY("SizeRange") << p.getSizeRange().minimum << p.getSizeRange().maximum << std::endl;
-    os << os.PROPERTY("AlphaRange") << p.getAlphaRange().minimum << p.getAlphaRange().maximum << std::endl;
+    os << os.PROPERTY("LifeTime") << p.getLifeTime() << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("SizeRange") << p.getSizeRange().minimum << p.getSizeRange().maximum << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("AlphaRange") << p.getAlphaRange().minimum << p.getAlphaRange().maximum << osgDB::OutputStream::Endl{};
     os << os.PROPERTY("ColorRange") << osg::Vec4d(p.getColorRange().minimum)
-                                        << osg::Vec4d(p.getColorRange().maximum) << std::endl;
+                                        << osg::Vec4d(p.getColorRange().maximum) << osgDB::OutputStream::Endl{};
 
     os << os.PROPERTY("SizeInterpolator") << (p.getSizeInterpolator()!=NULL);
     if ( p.getSizeInterpolator()!=NULL )
-        os << os.BEGIN_BRACKET << std::endl << p.getSizeInterpolator() << os.END_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{} << p.getSizeInterpolator() << os.END_BRACKET << osgDB::OutputStream::Endl{};
     os << os.PROPERTY("AlphaInterpolator") << (p.getAlphaInterpolator()!=NULL);
     if ( p.getAlphaInterpolator()!=NULL )
-        os << os.BEGIN_BRACKET << std::endl << p.getAlphaInterpolator() << os.END_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{} << p.getAlphaInterpolator() << os.END_BRACKET << osgDB::OutputStream::Endl{};
     os << os.PROPERTY("ColorInterpolator") << (p.getColorInterpolator()!=NULL);
     if ( p.getColorInterpolator()!=NULL )
-        os << os.BEGIN_BRACKET << std::endl << p.getColorInterpolator() << os.END_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{} << p.getColorInterpolator() << os.END_BRACKET << osgDB::OutputStream::Endl{};
 
-    os << os.PROPERTY("Radius") << p.getRadius() << std::endl;
-    os << os.PROPERTY("Mass") << p.getMass() << std::endl;
-    os << os.PROPERTY("Position") << osg::Vec3d(p.getPosition()) << std::endl;
-    os << os.PROPERTY("Velocity") << osg::Vec3d(p.getVelocity()) << std::endl;
-    os << os.PROPERTY("Angle") << osg::Vec3d(p.getAngle()) << std::endl;
-    os << os.PROPERTY("AngularVelocity") << osg::Vec3d(p.getAngularVelocity()) << std::endl;
-    os << os.PROPERTY("TextureTile") << p.getTileS() << p.getTileT() << p.getNumTiles() << std::endl;
+    os << os.PROPERTY("Radius") << p.getRadius() << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Mass") << p.getMass() << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Position") << osg::Vec3d(p.getPosition()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Velocity") << osg::Vec3d(p.getVelocity()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Angle") << osg::Vec3d(p.getAngle()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("AngularVelocity") << osg::Vec3d(p.getAngularVelocity()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("TextureTile") << p.getTileS() << p.getTileT() << p.getNumTiles() << osgDB::OutputStream::Endl{};
 
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }

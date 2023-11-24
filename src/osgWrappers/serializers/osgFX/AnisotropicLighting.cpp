@@ -21,7 +21,7 @@ static bool readLightingMap( osgDB::InputStream& is, osgFX::AnisotropicLighting&
 static bool writeLightingMap( osgDB::OutputStream& os, const osgFX::AnisotropicLighting& effect )
 {
     os.writeWrappedString( effect.getLightingMap()->getFileName() );
-    os << std::endl; return true;
+    os << osgDB::OutputStream::Endl{}; return true;
 }
 
 REGISTER_OBJECT_WRAPPER( osgFX_AnisotropicLighting,

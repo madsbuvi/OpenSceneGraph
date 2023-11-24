@@ -25,13 +25,13 @@ static bool writePositionList( osgDB::OutputStream& os, const osg::Billboard& no
 {
     const osg::Billboard::PositionList& posList = node.getPositionList();
     os.writeSize(posList.size());
-    os<< os.BEGIN_BRACKET << std::endl;
+    os<< os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::Billboard::PositionList::const_iterator itr=posList.begin();
           itr!=posList.end(); ++itr )
     {
-        os << osg::Vec3d(*itr) << std::endl;
+        os << osg::Vec3d(*itr) << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

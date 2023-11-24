@@ -45,7 +45,7 @@ static bool readAttributes( osgDB::InputStream& is, osgSim::ShapeAttributeList& 
 static bool writeAttributes( osgDB::OutputStream& os, const osgSim::ShapeAttributeList& list )
 {
     unsigned int size = list.size();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         const osgSim::ShapeAttribute& sa = list[i];
@@ -53,12 +53,12 @@ static bool writeAttributes( osgDB::OutputStream& os, const osgSim::ShapeAttribu
         os << os.PROPERTY("Type") << (int)sa.getType();
         switch ( sa.getType() )
         {
-        case osgSim::ShapeAttribute::INTEGER: os << sa.getInt() << std::endl; break;
-        case osgSim::ShapeAttribute::DOUBLE: os << sa.getDouble() << std::endl; break;
-        default: os << std::string(sa.getString()) << std::endl; break;
+        case osgSim::ShapeAttribute::INTEGER: os << sa.getInt() << osgDB::OutputStream::Endl{}; break;
+        case osgSim::ShapeAttribute::DOUBLE: os << sa.getDouble() << osgDB::OutputStream::Endl{}; break;
+        default: os << std::string(sa.getString()) << osgDB::OutputStream::Endl{}; break;
         }
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

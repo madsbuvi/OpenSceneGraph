@@ -23,7 +23,7 @@ static bool writeComputeGroups( osgDB::OutputStream& os, const osg::DispatchComp
 {
     GLint numX = 0, numY = 0, numZ = 0;
     attr.getComputeGroups( numX, numY, numZ );
-    os << numX << numY << numZ << std::endl;
+    os << numX << numY << numZ << osgDB::OutputStream::Endl{};
     return true;
 }
 

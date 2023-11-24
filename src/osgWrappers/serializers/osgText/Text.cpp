@@ -19,7 +19,7 @@ static bool readBackdropOffset( osgDB::InputStream& is, osgText::Text& text )
 static bool writeBackdropOffset( osgDB::OutputStream& os, const osgText::Text& text )
 {
     os << text.getBackdropHorizontalOffset()
-       << text.getBackdropVerticalOffset() << std::endl;
+       << text.getBackdropVerticalOffset() << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -44,12 +44,12 @@ static bool readColorGradientCorners( osgDB::InputStream& is, osgText::Text& tex
 
 static bool writeColorGradientCorners( osgDB::OutputStream& os, const osgText::Text& text )
 {
-    os << os.BEGIN_BRACKET << std::endl;
-    os << os.PROPERTY("TopLeft") << osg::Vec4d(text.getColorGradientTopLeft()) << std::endl;
-    os << os.PROPERTY("BottomLeft") << osg::Vec4d(text.getColorGradientBottomLeft()) << std::endl;
-    os << os.PROPERTY("BottomRight") << osg::Vec4d(text.getColorGradientBottomRight()) << std::endl;
-    os << os.PROPERTY("TopRight") << osg::Vec4d(text.getColorGradientTopRight()) << std::endl;
-    os << os.END_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("TopLeft") << osg::Vec4d(text.getColorGradientTopLeft()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("BottomLeft") << osg::Vec4d(text.getColorGradientBottomLeft()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("BottomRight") << osg::Vec4d(text.getColorGradientBottomRight()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("TopRight") << osg::Vec4d(text.getColorGradientTopRight()) << osgDB::OutputStream::Endl{};
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

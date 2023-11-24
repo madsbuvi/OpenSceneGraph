@@ -23,12 +23,12 @@ static bool readProperties( osgDB::InputStream& is, osgVolume::CompositeProperty
 static bool writeProperties( osgDB::OutputStream& os, const osgVolume::CompositeProperty& prop )
 {
     unsigned int size = prop.getNumProperties();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << prop.getProperty(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

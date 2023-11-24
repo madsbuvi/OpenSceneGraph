@@ -25,15 +25,15 @@ static bool readPulseData( osgDB::InputStream& is, osgSim::BlinkSequence& bs )
 static bool writePulseData( osgDB::OutputStream& os, const osgSim::BlinkSequence& bs )
 {
     unsigned int size = bs.getNumPulses();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         double length = 0.0;
         osg::Vec4 color;
         bs.getPulse( i, length, color );
-        os << length << color << std::endl;
+        os << length << color << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

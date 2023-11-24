@@ -23,13 +23,13 @@ static bool readVertices( osgDB::InputStream& is, osgParticle::MultiSegmentPlace
 static bool writeVertices( osgDB::OutputStream& os, const osgParticle::MultiSegmentPlacer& placer )
 {
     unsigned int size = placer.numVertices();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << osg::Vec3d(placer.getVertex(i));
     }
-    os << std::endl;
-    os << os.END_BRACKET << std::endl;
+    os << osgDB::OutputStream::Endl{};
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

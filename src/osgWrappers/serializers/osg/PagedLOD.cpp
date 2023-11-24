@@ -34,7 +34,7 @@ static bool writeDatabasePath( osgDB::OutputStream& os, const osg::PagedLOD& nod
     os << (!node.getDatabasePath().empty());
     if ( !node.getDatabasePath().empty() )
         os.writeWrappedString( node.getDatabasePath() );
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -70,21 +70,21 @@ static bool readRangeDataList( osgDB::InputStream& is, osg::PagedLOD& node )
 static bool writeRangeDataList( osgDB::OutputStream& os, const osg::PagedLOD& node )
 {
     unsigned int size = node.getNumFileNames();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os.writeWrappedString( node.getFileName(i) );
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
 
     size = node.getNumPriorityOffsets();
-    os << os.PROPERTY("PriorityList") << size << os.BEGIN_BRACKET << std::endl;
+    os << os.PROPERTY("PriorityList") << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
-        os << node.getPriorityOffset(i) << node.getPriorityScale(i) << std::endl;
+        os << node.getPriorityOffset(i) << node.getPriorityScale(i) << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -122,7 +122,7 @@ static bool writeChildren( osgDB::OutputStream& os, const osg::PagedLOD& node )
     unsigned int realSize = size-dynamicLoadedSize; os << realSize;
     if ( realSize>0 )
     {
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         for ( unsigned int i=0; i<size; ++i )
         {
             if ( !node.getFileName(i).empty() ) continue;
@@ -131,7 +131,7 @@ static bool writeChildren( osgDB::OutputStream& os, const osg::PagedLOD& node )
         }
         os << os.END_BRACKET;
     }
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
     return true;
 }
 

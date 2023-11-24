@@ -22,9 +22,9 @@ static bool readUserData( osgDB::InputStream& is, osg::Object& obj )
 
 static bool writeUserData( osgDB::OutputStream& os, const osg::Object& obj )
 {
-    os << os.BEGIN_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     os.writeObject(dynamic_cast<const osg::Object*>(obj.getUserData()));
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

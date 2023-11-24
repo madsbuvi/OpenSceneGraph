@@ -17,7 +17,7 @@ static bool readSelectedTechnique( osgDB::InputStream& is, osgFX::Effect& effect
 
 static bool writeSelectedTechnique( osgDB::OutputStream& os, const osgFX::Effect& effect )
 {
-    os << effect.getSelectedTechnique() << std::endl;
+    os << effect.getSelectedTechnique() << osgDB::OutputStream::Endl{};
     return true;
 }
 

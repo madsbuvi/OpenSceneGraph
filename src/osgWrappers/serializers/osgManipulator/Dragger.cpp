@@ -30,7 +30,7 @@ static bool readTransformUpdating( osgDB::InputStream& is, osgManipulator::Dragg
 static bool writeTransformUpdating( osgDB::OutputStream& os, const osgManipulator::Dragger& dragger )
 {
     const osgManipulator::Dragger::DraggerCallbacks& callbacks = dragger.getDraggerCallbacks();
-    os.writeSize( callbacks.size() ); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize( callbacks.size() ); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osgManipulator::Dragger::DraggerCallbacks::const_iterator itr=callbacks.begin();
           itr!=callbacks.end(); ++itr )
     {
@@ -38,16 +38,16 @@ static bool writeTransformUpdating( osgDB::OutputStream& os, const osgManipulato
             dynamic_cast<osgManipulator::DraggerTransformCallback*>( itr->get() );
         if ( dtcb )
         {
-            os << std::string("DraggerTransformCallback") << os.BEGIN_BRACKET << std::endl;
+            os << std::string("DraggerTransformCallback") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
             os << dtcb->getTransform();
         }
         else
         {
-            os << std::string("DraggerCallback") << os.BEGIN_BRACKET << std::endl;
+            os << std::string("DraggerCallback") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         }
-        os << os.END_BRACKET << std::endl;
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -64,7 +64,7 @@ static bool readDefaultGeometry( osgDB::InputStream& is, osgManipulator::Dragger
 
 static bool writeDefaultGeometry( osgDB::OutputStream& os, const osgManipulator::Dragger& dragger )
 {
-    os << true << std::endl;
+    os << true << osgDB::OutputStream::Endl{};
     return true;
 }
 

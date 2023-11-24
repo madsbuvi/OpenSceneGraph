@@ -63,6 +63,7 @@ public:
     virtual void writeString( const std::string& s ) { _str.insert(_str.end(), s.begin(), s.end()); }
     virtual void writeStream( std::ostream& (*)(std::ostream&) ) {}
     virtual void writeBase( std::ios_base& (*)(std::ios_base&) ) {}
+    virtual void writeEndl() {}
     virtual void writeGLenum( const osgDB::ObjectGLenum& value ) { writeInt(value.get()); }
     virtual void writeProperty( const osgDB::ObjectProperty& prop ) { _propertyName = prop._name; }
     virtual void writeMark( const osgDB::ObjectMark& mark ) { _markName = mark._name; }

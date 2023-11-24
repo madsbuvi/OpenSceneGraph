@@ -21,12 +21,12 @@ static bool readData( osgDB::InputStream& is, osgSim::ObjectRecordData& data )
 
 static bool writeData( osgDB::OutputStream& os, const osgSim::ObjectRecordData& data )
 {
-    os << os.PROPERTY("Flags") << data._flags << std::endl;
-    os << os.PROPERTY("RelativePriority") << data._relativePriority << std::endl;
-    os << os.PROPERTY("Transparency") << data._transparency << std::endl;
-    os << os.PROPERTY("EffectID1") << data._effectID1 << std::endl;
-    os << os.PROPERTY("EffectID2") << data._effectID2 << std::endl;
-    os << os.PROPERTY("Significance") << data._significance << std::endl;
+    os << os.PROPERTY("Flags") << data._flags << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("RelativePriority") << data._relativePriority << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Transparency") << data._transparency << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("EffectID1") << data._effectID1 << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("EffectID2") << data._effectID2 << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Significance") << data._significance << osgDB::OutputStream::Endl{};
     return true;
 }
 

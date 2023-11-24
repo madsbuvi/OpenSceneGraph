@@ -18,7 +18,7 @@ static bool writeArea( osgDB::OutputStream& os, const osgSim::SphereSegment& sph
 {
     float azMin, azMax, elevMin, elevMax;
     sphere.getArea( azMin, azMax, elevMin, elevMax );
-    os << azMin << azMax << elevMin << elevMax << std::endl;
+    os << azMin << azMax << elevMin << elevMax << osgDB::OutputStream::Endl{};
     return true;
 }
 

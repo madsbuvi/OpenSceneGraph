@@ -51,7 +51,7 @@ static bool writeKeyManipMap( osgDB::OutputStream& os, const osgGA::KeySwitchMat
     }
 
     os << activeCameraManipulatorIndex;
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
 
     for ( osgGA::KeySwitchMatrixManipulator::KeyManipMap::const_iterator itr = kmm.begin();
           itr != kmm.end();
@@ -61,7 +61,7 @@ static bool writeKeyManipMap( osgDB::OutputStream& os, const osgGA::KeySwitchMat
         os << itr->second.first;
         os.writeObject(itr->second.second.get());
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
 
     return true;
 }

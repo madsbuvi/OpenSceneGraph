@@ -32,20 +32,20 @@ static bool readValues( osgDB::InputStream& is, osgSim::MultiSwitch& node )
 static bool writeValues( osgDB::OutputStream& os, const osgSim::MultiSwitch& node )
 {
     const osgSim::MultiSwitch::SwitchSetList& switches = node.getSwitchSetList();
-    os.writeSize( switches.size() ); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize( switches.size() ); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<switches.size(); ++i )
     {
         const osgSim::MultiSwitch::ValueList& values = node.getValueList(i);
         os << os.PROPERTY("SwitchSet"); os.writeSize( values.size() );
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         for ( osgSim::MultiSwitch::ValueList::const_iterator itr=values.begin();
               itr!=values.end(); ++itr )
         {
-            os << *itr << std::endl;
+            os << *itr << osgDB::OutputStream::Endl{};
         }
-        os << os.END_BRACKET << std::endl;
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

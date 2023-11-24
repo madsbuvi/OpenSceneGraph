@@ -22,7 +22,7 @@ static bool readMasks( osgDB::InputStream& is, osg::SampleMaski& attr )
 
 static bool writeMasks( osgDB::OutputStream& os, const osg::SampleMaski& attr )
 {
-    os << attr.getMask( 0u ) << attr.getMask( 1u ) << std::endl;
+    os << attr.getMask( 0u ) << attr.getMask( 1u ) << osgDB::OutputStream::Endl{};
     return true;
 }
 

@@ -11,7 +11,7 @@
         return true; \
     } \
     static bool write##PROP( osgDB::OutputStream& os, const osg::Texture& tex ) { \
-        os << GLENUM(tex.getWrap(VALUE)) << std::endl; \
+        os << GLENUM(tex.getWrap(VALUE)) << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 
@@ -27,7 +27,7 @@ WRAP_FUNCTIONS( WRAP_R, osg::Texture::WRAP_R )
         return true; \
     } \
     static bool write##PROP( osgDB::OutputStream& os, const osg::Texture& tex ) { \
-        os << GLENUM(tex.getFilter(VALUE)) << std::endl; \
+        os << GLENUM(tex.getFilter(VALUE)) << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 
@@ -43,7 +43,7 @@ FILTER_FUNCTIONS( MAG_FILTER, osg::Texture::MAG_FILTER )
         return true; \
     } \
     static bool write##PROP( osgDB::OutputStream& os, const osg::Texture& tex ) { \
-        os << GLENUM(tex.get##PROP()) << std::endl; \
+        os << GLENUM(tex.get##PROP()) << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 
@@ -64,9 +64,9 @@ static bool readInternalFormat( osgDB::InputStream& is, osg::Texture& tex )
 static bool writeInternalFormat( osgDB::OutputStream& os, const osg::Texture& tex )
 {
     if ( os.isBinary() && tex.getInternalFormatMode()!=osg::Texture::USE_USER_DEFINED_FORMAT )
-        os << GLENUM(GL_NONE) << std::endl;  // Avoid use of OpenGL extensions
+        os << GLENUM(GL_NONE) << osgDB::OutputStream::Endl{};  // Avoid use of OpenGL extensions
     else
-        os << GLENUM(tex.getInternalFormat()) << std::endl;
+        os << GLENUM(tex.getInternalFormat()) << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -99,7 +99,7 @@ static bool writeImageAttachment( osgDB::OutputStream& os, const osg::Texture& a
 {
     DummyImageAttachment attachment;
     os << attachment.unit << attachment.level << attachment.layered
-       << attachment.layer << attachment.access << attachment.format << std::endl;
+       << attachment.layer << attachment.access << attachment.format << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -190,7 +190,7 @@ static bool readSwizzle( osgDB::InputStream& is, osg::Texture& attr )
 
 static bool writeSwizzle( osgDB::OutputStream& os, const osg::Texture& attr )
 {
-    os << swizzleToString(attr.getSwizzle()) << std::endl;
+    os << swizzleToString(attr.getSwizzle()) << osgDB::OutputStream::Endl{};
 
     return true;
 }

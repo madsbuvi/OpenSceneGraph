@@ -11,7 +11,7 @@
         return true; \
     } \
     static bool write##PROP( osgDB::OutputStream& os, const osgVolume::Layer& layer ) { \
-        os << GLENUM(layer.get##PROP()) << std::endl; \
+        os << GLENUM(layer.get##PROP()) << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 

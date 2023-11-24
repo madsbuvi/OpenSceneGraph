@@ -17,7 +17,7 @@ static bool readPutMatrix( osgDB::InputStream& is, osgSim::DOFTransform& dof )
 static bool writePutMatrix( osgDB::OutputStream& os, const osgSim::DOFTransform& dof )
 {
     osg::Matrixf put = dof.getPutMatrix();
-    os << put << std::endl;
+    os << put << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -33,7 +33,7 @@ static bool readLimitationFlags( osgDB::InputStream& is, osgSim::DOFTransform& d
 
 static bool writeLimitationFlags( osgDB::OutputStream& os, const osgSim::DOFTransform& dof )
 {
-    os << dof.getLimitationFlags() << std::endl;
+    os << dof.getLimitationFlags() << osgDB::OutputStream::Endl{};
     return true;
 }
 
