@@ -46,32 +46,32 @@ static bool readLightPointList( osgDB::InputStream& is, osgSim::LightPointNode& 
 static bool writeLightPointList( osgDB::OutputStream& os, const osgSim::LightPointNode& node )
 {
     unsigned int size = node.getNumLightPoints();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         const osgSim::LightPoint& pt = node.getLightPoint(i);
-        os << os.PROPERTY("LightPoint") << os.BEGIN_BRACKET << std::endl;
-        os << os.PROPERTY("Position") << pt._position << std::endl;
-        os << os.PROPERTY("Color") << pt._color << std::endl;
+        os << os.PROPERTY("LightPoint") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Position") << pt._position << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Color") << pt._color << osgDB::OutputStream::Endl{};
         os << os.PROPERTY("Attributes") << pt._on << (int)pt._blendingMode
-                                            << pt._intensity << pt._radius << std::endl;
+                                            << pt._intensity << pt._radius << osgDB::OutputStream::Endl{};
         os << os.PROPERTY("Sector") << (pt._sector!=NULL);
         if ( pt._sector!=NULL )
         {
-            os << os.BEGIN_BRACKET << std::endl;
+            os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
             os.writeObject( pt._sector.get() );
-            os << os.END_BRACKET << std::endl;
+            os << os.END_BRACKET << osgDB::OutputStream::Endl{};
         }
         os << os.PROPERTY("BlinkSequence") << (pt._blinkSequence!=NULL);
         if ( pt._blinkSequence!=NULL )
         {
-            os << os.BEGIN_BRACKET << std::endl;
+            os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
             os.writeObject( pt._blinkSequence.get() );
-            os << os.END_BRACKET << std::endl;
+            os << os.END_BRACKET << osgDB::OutputStream::Endl{};
         }
-        os << os.END_BRACKET << std::endl;
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

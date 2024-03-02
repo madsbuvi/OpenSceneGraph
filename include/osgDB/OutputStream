@@ -76,6 +76,8 @@ public:
         WRITE_EXTERNAL_FILE        /*!< Write Image::data() to disk and use it as external file */
     };
 
+    struct Endl {};
+
     OutputStream( const osgDB::Options* options );
     virtual ~OutputStream();
 
@@ -108,6 +110,7 @@ public:
     OutputStream& operator<<( const char* s ) { _out->writeString(s); return *this; }
     OutputStream& operator<<( std::ostream& (*fn)(std::ostream&) ) { _out->writeStream(fn); return *this; }
     OutputStream& operator<<( std::ios_base& (*fn)(std::ios_base&) ) { _out->writeBase(fn); return *this; }
+    OutputStream& operator<<( Endl ) { _out->writeEndl(); return *this; }
 
     OutputStream& operator<<( const ObjectGLenum& value ) { _out->writeGLenum(value); return *this; }
     OutputStream& operator<<( const ObjectProperty& prop ) { _out->writeProperty(prop); return *this; }

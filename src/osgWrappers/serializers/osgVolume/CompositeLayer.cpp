@@ -23,12 +23,12 @@ static bool readLayers( osgDB::InputStream& is, osgVolume::CompositeLayer& layer
 static bool writeLayers( osgDB::OutputStream& os, const osgVolume::CompositeLayer& layer )
 {
     unsigned int size = layer.getNumLayers();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << layer.getLayer(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

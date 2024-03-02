@@ -29,13 +29,13 @@ static bool writeAnimations( osgDB::OutputStream& os, const osgAnimation::Animat
 {
     const osgAnimation::AnimationList& animations = manager.getAnimationList();
     os.writeSize(animations.size());
-    os << os.BEGIN_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osgAnimation::AnimationList::const_iterator itr=animations.begin();
             itr!=animations.end(); ++itr )
     {
         os << itr->get();
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 struct osgAnimation_AnimationManagerBasegetnumAnimations : public osgDB::MethodObject

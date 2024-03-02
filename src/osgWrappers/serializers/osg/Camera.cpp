@@ -77,31 +77,31 @@ static void writeBufferAttachment( osgDB::OutputStream& os, const osg::Camera::A
     os << os.PROPERTY("Type");
     if ( attachment._internalFormat!=GL_NONE )
     {
-        os << (char)0 << std::endl;
-        os << os.PROPERTY("InternalFormat") << GLENUM(attachment._internalFormat) << std::endl;
+        os << (char)0 << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("InternalFormat") << GLENUM(attachment._internalFormat) << osgDB::OutputStream::Endl{};
         return;
     }
     else if ( attachment._image.valid() )
     {
-        os << (char)1 << std::endl;
+        os << (char)1 << osgDB::OutputStream::Endl{};
         os << os.PROPERTY("Image") << attachment._image.get();
     }
     else if ( attachment._texture.valid() )
     {
-        os << (char)2 << std::endl;
+        os << (char)2 << osgDB::OutputStream::Endl{};
         os << os.PROPERTY("Texture") << attachment._texture.get();
-        os << os.PROPERTY("Level") << attachment._level << std::endl;
-        os << os.PROPERTY("Face") << attachment._face << std::endl;
-        os << os.PROPERTY("MipMapGeneration") << attachment._mipMapGeneration << std::endl;
+        os << os.PROPERTY("Level") << attachment._level << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("Face") << attachment._face << osgDB::OutputStream::Endl{};
+        os << os.PROPERTY("MipMapGeneration") << attachment._mipMapGeneration << osgDB::OutputStream::Endl{};
     }
     else
     {
-        os << (char)-1 << std::endl;
+        os << (char)-1 << osgDB::OutputStream::Endl{};
         return;
     }
 
-    os << os.PROPERTY("MultisampleSamples") << attachment._multisampleSamples << std::endl;
-    os << os.PROPERTY("MultisampleColorSamples") << attachment._multisampleColorSamples << std::endl;
+    os << os.PROPERTY("MultisampleSamples") << attachment._multisampleSamples << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("MultisampleColorSamples") << attachment._multisampleColorSamples <<osgDB::OutputStream::Endl{};
 }
 
 // _renderOrder & _renderOrderNum
@@ -121,7 +121,7 @@ static bool readRenderOrder( osgDB::InputStream& is, osg::Camera& node )
 static bool writeRenderOrder( osgDB::OutputStream& os, const osg::Camera& node )
 {
     writeOrderValue( os, (int)node.getRenderOrder() );
-    os << node.getRenderOrderNum() << std::endl;
+    os << node.getRenderOrderNum() << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -166,16 +166,16 @@ static bool readBufferAttachmentMap( osgDB::InputStream& is, osg::Camera& node )
 static bool writeBufferAttachmentMap( osgDB::OutputStream& os, const osg::Camera& node )
 {
     const osg::Camera::BufferAttachmentMap& map = node.getBufferAttachmentMap();
-    os.writeSize(map.size()); os<< os.BEGIN_BRACKET << std::endl;
+    os.writeSize(map.size()); os<< os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::Camera::BufferAttachmentMap::const_iterator itr=map.begin();
           itr!=map.end(); ++itr )
     {
         os << os.PROPERTY("Attachment"); writeBufferComponent( os, itr->first );
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         writeBufferAttachment( os, itr->second );
-        os << os.END_BRACKET << std::endl;
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

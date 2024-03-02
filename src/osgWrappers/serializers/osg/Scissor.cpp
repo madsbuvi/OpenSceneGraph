@@ -18,7 +18,7 @@ static bool readArea( osgDB::InputStream& is, osg::Scissor& attr )
 
 static bool writeArea( osgDB::OutputStream& os, const osg::Scissor& attr )
 {
-    os << attr.x() << attr.y() << attr.width() << attr.height() << std::endl;
+    os << attr.x() << attr.y() << attr.width() << attr.height() << osgDB::OutputStream::Endl{};
     return true;
 }
 

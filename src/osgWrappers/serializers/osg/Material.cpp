@@ -21,7 +21,7 @@
     static bool write##PROP( osgDB::OutputStream& os, const osg::Material& attr ) { \
         os << attr.get##PROP##FrontAndBack(); \
         os << os.PROPERTY("Front") << TYPE(attr.get##PROP(osg::Material::FRONT)); \
-        os << os.PROPERTY("Back") << TYPE(attr.get##PROP(osg::Material::BACK)) << std::endl; \
+        os << os.PROPERTY("Back") << TYPE(attr.get##PROP(osg::Material::BACK)) << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 

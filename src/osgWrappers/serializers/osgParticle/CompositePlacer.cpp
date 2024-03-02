@@ -23,12 +23,12 @@ static bool readPlacers( osgDB::InputStream& is, osgParticle::CompositePlacer& c
 static bool writePlacers( osgDB::OutputStream& os, const osgParticle::CompositePlacer& cp )
 {
     unsigned int size = cp.getNumPlacers();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << cp.getPlacer(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

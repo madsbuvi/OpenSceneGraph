@@ -16,7 +16,7 @@ static bool readElevationRange( osgDB::InputStream& is, osgSim::ElevationSector&
 
 static bool writeElevationRange( osgDB::OutputStream& os, const osgSim::ElevationSector& sector )
 {
-    os << sector.getMinElevation() << sector.getMaxElevation() << sector.getFadeAngle() << std::endl;
+    os << sector.getMinElevation() << sector.getMaxElevation() << sector.getFadeAngle() << osgDB::OutputStream::Endl{};
     return true;
 }
 

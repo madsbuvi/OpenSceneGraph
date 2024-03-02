@@ -20,7 +20,7 @@ static bool readFont( osgDB::InputStream& is, osgText::TextBase& text )
 static bool writeFont( osgDB::OutputStream& os, const osgText::TextBase& text )
 {
     os.writeWrappedString( text.getFont()->getFileName() );
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -39,7 +39,7 @@ static bool readFontSize( osgDB::InputStream& is, osgText::TextBase& text )
 
 static bool writeFontSize( osgDB::OutputStream& os, const osgText::TextBase& text )
 {
-    os << text.getFontWidth() << text.getFontHeight() << std::endl;
+    os << text.getFontWidth() << text.getFontHeight() << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -58,7 +58,7 @@ static bool readCharacterSize( osgDB::InputStream& is, osgText::TextBase& text )
 
 static bool writeCharacterSize( osgDB::OutputStream& os, const osgText::TextBase& text )
 {
-    os << text.getCharacterHeight() << text.getCharacterAspectRatio() << std::endl;
+    os << text.getCharacterHeight() << text.getCharacterAspectRatio() << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -115,7 +115,7 @@ static bool writeText( osgDB::OutputStream& os, const osgText::TextBase& text )
             acString += (char)(*itr);
         }
         os.writeWrappedString( acString );
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
     else
     {

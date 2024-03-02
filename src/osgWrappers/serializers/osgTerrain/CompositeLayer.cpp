@@ -34,7 +34,7 @@ static bool readLayers( osgDB::InputStream& is, osgTerrain::CompositeLayer& laye
 static bool writeLayers( osgDB::OutputStream& os, const osgTerrain::CompositeLayer& layer )
 {
     unsigned int size = layer.getNumLayers();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         const osgTerrain::Layer* child = layer.getLayer(i);
@@ -47,10 +47,10 @@ static bool writeLayers( osgDB::OutputStream& os, const osgTerrain::CompositeLay
         else
         {
             os.writeWrappedString( layer.getCompoundName(i) );
-            os << std::endl;
+            os << osgDB::OutputStream::Endl{};
         }
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

@@ -77,17 +77,17 @@ static void writeModes( osgDB::OutputStream& os, const osg::StateSet::ModeList& 
     os.writeSize(modes.size());
     if ( modes.size()>0 )
     {
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         for ( osg::StateSet::ModeList::const_iterator itr=modes.begin();
               itr!=modes.end(); ++itr )
         {
             os << GLENUM(itr->first);
             writeValue(os, itr->second);
-            os << std::endl;
+            os << osgDB::OutputStream::Endl{};
         }
         os << os.END_BRACKET;
     }
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
 }
 
 static void writeAttributes( osgDB::OutputStream& os, const osg::StateSet::AttributeList& attrs )
@@ -95,18 +95,18 @@ static void writeAttributes( osgDB::OutputStream& os, const osg::StateSet::Attri
     os.writeSize(attrs.size());
     if ( attrs.size()>0 )
     {
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         for ( osg::StateSet::AttributeList::const_iterator itr=attrs.begin();
               itr!=attrs.end(); ++itr )
         {
             os << itr->second.first.get();
             os << os.PROPERTY("Value");
             writeValue(os, itr->second.second);
-            os << std::endl;
+            os << osgDB::OutputStream::Endl{};
         }
         os << os.END_BRACKET;
     }
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
 }
 
 // _modeList
@@ -183,14 +183,14 @@ static bool readTextureModeList( osgDB::InputStream& is, osg::StateSet& ss )
 static bool writeTextureModeList( osgDB::OutputStream& os, const osg::StateSet& ss )
 {
     const osg::StateSet::TextureModeList& tml = ss.getTextureModeList();
-    os.writeSize(tml.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(tml.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::StateSet::TextureModeList::const_iterator itr=tml.begin();
           itr!=tml.end(); ++itr )
     {
         os << os.PROPERTY("Data");
         writeModes( os, *itr );
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -222,14 +222,14 @@ static bool readTextureAttributeList( osgDB::InputStream& is, osg::StateSet& ss 
 static bool writeTextureAttributeList( osgDB::OutputStream& os, const osg::StateSet& ss )
 {
     const osg::StateSet::TextureAttributeList& tal = ss.getTextureAttributeList();
-    os.writeSize(tal.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(tal.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::StateSet::TextureAttributeList::const_iterator itr=tal.begin();
           itr!=tal.end(); ++itr )
     {
         os << os.PROPERTY("Data");
         writeAttributes( os, *itr );
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -257,16 +257,16 @@ static bool readUniformList( osgDB::InputStream& is, osg::StateSet& ss )
 static bool writeUniformList( osgDB::OutputStream& os, const osg::StateSet& ss )
 {
     const osg::StateSet::UniformList& ul = ss.getUniformList();
-    os.writeSize(ul.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(ul.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::StateSet::UniformList::const_iterator itr=ul.begin();
           itr!=ul.end(); ++itr )
     {
         os << itr->second.first.get();
         os << os.PROPERTY("Value");
         writeValue(os, itr->second.second);
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -300,7 +300,7 @@ static bool readDefineList( osgDB::InputStream& is, osg::StateSet& ss )
 static bool writeDefineList( osgDB::OutputStream& os, const osg::StateSet& ss )
 {
     const osg::StateSet::DefineList& df = ss.getDefineList();
-    os.writeSize(df.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(df.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::StateSet::DefineList::const_iterator itr=df.begin();
           itr!=df.end(); ++itr )
     {
@@ -308,9 +308,9 @@ static bool writeDefineList( osgDB::OutputStream& os, const osg::StateSet& ss )
         os.writeWrappedString(itr->second.first);
         os << os.PROPERTY("Value");
         writeValue(os, itr->second.second);
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

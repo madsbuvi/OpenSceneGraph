@@ -25,14 +25,14 @@ static bool readMorphTargets( osgDB::InputStream& is, osgAnimation::MorphGeometr
 static bool writeMorphTargets( osgDB::OutputStream& os, const osgAnimation::MorphGeometry& geom )
 {
     const osgAnimation::MorphGeometry::MorphTargetList& targets = geom.getMorphTargetList();
-    os.writeSize(targets.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(targets.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osgAnimation::MorphGeometry::MorphTargetList::const_iterator itr=targets.begin();
           itr!=targets.end(); ++itr )
     {
-        os << os.PROPERTY("MorphTarget") << itr->getWeight() << std::endl;
+        os << os.PROPERTY("MorphTarget") << itr->getWeight() << osgDB::OutputStream::Endl{};
         os << itr->getGeometry();
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -47,9 +47,9 @@ static bool writeMorphTargets( osgDB::OutputStream& os, const osgAnimation::Morp
         return true; \
     } \
     static bool write##ORIGINAL_PROP( osgDB::OutputStream& os, const osgAnimation::MorphGeometry& geom ) { \
-        os << os.BEGIN_BRACKET << std::endl; \
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; \
         os.writeArray( geom.get##PROP()); \
-        os << os.END_BRACKET << std::endl; \
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 ADD_ARRAYDATA_FUNCTIONS( VertexData, VertexSource )

@@ -26,13 +26,13 @@ static bool readFileNames( osgDB::InputStream& is, osg::ProxyNode& node )
 
 static bool writeFileNames( osgDB::OutputStream& os, const osg::ProxyNode& node )
 {
-    os << node.getNumFileNames() << os.BEGIN_BRACKET << std::endl;
+    os << node.getNumFileNames() << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<node.getNumFileNames(); ++i )
     {
         os.writeWrappedString( node.getFileName(i) );
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -70,7 +70,7 @@ static bool writeChildren( osgDB::OutputStream& os, const osg::ProxyNode& node )
     unsigned int realSize = size-dynamicLoadedSize; os << realSize;
     if ( realSize>0 )
     {
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         for ( unsigned int i=0; i<size; ++i )
         {
             if ( !node.getFileName(i).empty() ) continue;
@@ -79,7 +79,7 @@ static bool writeChildren( osgDB::OutputStream& os, const osg::ProxyNode& node )
         }
         os << os.END_BRACKET;
     }
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -99,7 +99,7 @@ static bool readUserCenter( osgDB::InputStream& is, osg::ProxyNode& node )
 
 static bool writeUserCenter( osgDB::OutputStream& os, const osg::ProxyNode& node )
 {
-    os << osg::Vec3d(node.getCenter()) << (double)node.getRadius() << std::endl;
+    os << osg::Vec3d(node.getCenter()) << (double)node.getRadius() << osgDB::OutputStream::Endl{};
     return true;
 }
 

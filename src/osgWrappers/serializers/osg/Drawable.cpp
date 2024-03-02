@@ -22,11 +22,11 @@ static bool readInitialBound( osgDB::InputStream& is, osg::Drawable& drawable )
 static bool writeInitialBound( osgDB::OutputStream& os, const osg::Drawable& drawable )
 {
     const osg::BoundingBox& bb = drawable.getInitialBound();
-    os << os.BEGIN_BRACKET << std::endl;
-    os << os.PROPERTY("Minimum") << osg::Vec3d(bb._min) << std::endl;
-    os << os.PROPERTY("Maximum") << osg::Vec3d(bb._max) << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Minimum") << osg::Vec3d(bb._min) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Maximum") << osg::Vec3d(bb._max) << osgDB::OutputStream::Endl{};
     os << os.END_BRACKET;
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
     return true;
 }
 

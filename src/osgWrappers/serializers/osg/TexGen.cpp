@@ -11,7 +11,7 @@
         return true; \
     } \
     static bool write##PROP( osgDB::OutputStream& os, const osg::TexGen& tex ) { \
-        os << tex.getPlane(COORD) << std::endl; \
+        os << tex.getPlane(COORD) << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 

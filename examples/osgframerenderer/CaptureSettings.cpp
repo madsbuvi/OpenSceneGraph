@@ -104,12 +104,12 @@ static bool writeEventHandlers( osgDB::OutputStream& os, const gsc::CaptureSetti
 {
     const gsc::CaptureSettings::EventHandlers& pl = cs.getEventHandlers();
     unsigned int size = pl.size();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << pl[i].get();
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -135,12 +135,12 @@ static bool writeProperties( osgDB::OutputStream& os, const gsc::CaptureSettings
 {
     const gsc::CaptureSettings::Properties& pl = cs.getProperties();
     unsigned int size = pl.size();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << pl[i].get();
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

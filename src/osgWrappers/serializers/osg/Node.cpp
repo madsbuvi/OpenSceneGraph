@@ -24,10 +24,10 @@ static bool readInitialBound( osgDB::InputStream& is, osg::Node& node )
 static bool writeInitialBound( osgDB::OutputStream& os, const osg::Node& node )
 {
     const osg::BoundingSphere& bs = node.getInitialBound();
-    os << os.BEGIN_BRACKET << std::endl;
-    os << os.PROPERTY("Center") << osg::Vec3d(bs.center()) << std::endl;
-    os << os.PROPERTY("Radius") << double(bs.radius()) << std::endl;
-    os << os.END_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Center") << osg::Vec3d(bs.center()) << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Radius") << double(bs.radius()) << osgDB::OutputStream::Endl{};
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -53,14 +53,14 @@ static bool readDescriptions( osgDB::InputStream& is, osg::Node& node )
 static bool writeDescriptions( osgDB::OutputStream& os, const osg::Node& node )
 {
     const osg::Node::DescriptionList& slist = node.getDescriptions();
-    os.writeSize(slist.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(slist.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::Node::DescriptionList::const_iterator itr=slist.begin();
           itr!=slist.end(); ++itr )
     {
         os.writeWrappedString( *itr );
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

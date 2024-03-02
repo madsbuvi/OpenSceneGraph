@@ -16,7 +16,7 @@ static bool readAngle( osgDB::InputStream& is, osgSim::ConeSector& sector )
 
 static bool writeAngle( osgDB::OutputStream& os, const osgSim::ConeSector& sector )
 {
-    os << sector.getAngle() << sector.getFadeAngle() << std::endl;
+    os << sector.getAngle() << sector.getFadeAngle() << osgDB::OutputStream::Endl{};
     return true;
 }
 

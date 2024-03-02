@@ -23,12 +23,12 @@ static bool readTextureWeights( osgDB::InputStream& is, osgFX::MultiTextureContr
 static bool writeTextureWeights( osgDB::OutputStream& os, const osgFX::MultiTextureControl& ctrl )
 {
     unsigned int size = ctrl.getNumTextureWeights();
-    os.writeSize(size); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(size); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << ctrl.getTextureWeight(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

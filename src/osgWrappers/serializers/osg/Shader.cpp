@@ -33,14 +33,14 @@ static bool writeShaderSource( osgDB::OutputStream& os, const osg::Shader& shade
         lines.push_back( line );
     }
 
-    os.writeSize(lines.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(lines.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( std::vector<std::string>::const_iterator itr=lines.begin();
           itr!=lines.end(); ++itr )
     {
         os.writeWrappedString( *itr );
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

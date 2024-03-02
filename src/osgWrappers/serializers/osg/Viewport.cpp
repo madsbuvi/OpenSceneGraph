@@ -18,7 +18,7 @@ static bool readArea( osgDB::InputStream& is, osg::Viewport& attr )
 
 static bool writeArea( osgDB::OutputStream& os, const osg::Viewport& attr )
 {
-    os << attr.x() << attr.y() << attr.width() << attr.height() << std::endl;
+    os << attr.x() << attr.y() << attr.width() << attr.height() << osgDB::OutputStream::Endl{};
     return true;
 }
 

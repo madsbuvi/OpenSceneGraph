@@ -24,12 +24,12 @@ static bool readFilterMatrix( osgDB::InputStream& is, osgTerrain::GeometryTechni
 static bool writeFilterMatrix( osgDB::OutputStream& os, const osgTerrain::GeometryTechnique& tech )
 {
     const osg::Matrix3& matrix = tech.getFilterMatrix();
-    os << os.BEGIN_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( int r=0; r<3; ++r )
     {
-        os << matrix(r, 0) << matrix(r, 1) << matrix(r, 2) << std::endl;
+        os << matrix(r, 0) << matrix(r, 1) << matrix(r, 2) << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

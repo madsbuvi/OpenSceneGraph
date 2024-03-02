@@ -20,7 +20,7 @@ static bool readTileID( osgDB::InputStream& is, osgTerrain::TerrainTile& tile )
 static bool writeTileID( osgDB::OutputStream& os, const osgTerrain::TerrainTile& tile )
 {
     const osgTerrain::TileID& id = tile.getTileID();
-    os << id.level << id.x << id.y << std::endl;
+    os << id.level << id.x << id.y << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -51,12 +51,12 @@ static bool writeColorLayers( osgDB::OutputStream& os, const osgTerrain::Terrain
         if (tile.getColorLayer(i)) ++numValidLayers;
     }
 
-    os << numValidLayers << os.BEGIN_BRACKET << std::endl;
+    os << numValidLayers << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<tile.getNumColorLayers(); ++i )
     {
         if (tile.getColorLayer(i)) os << os.PROPERTY("Layer") << i << tile.getColorLayer(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

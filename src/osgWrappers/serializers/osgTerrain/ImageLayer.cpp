@@ -35,9 +35,9 @@ static bool writeImage( osgDB::OutputStream& os, const osgTerrain::ImageLayer& i
 {
     const osg::Image* image = il.getImage();
 
-    if(!os.isBinary()) os << os.BEGIN_BRACKET << std::endl;
+    if(!os.isBinary()) os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     os.writeImage(image);
-    if(!os.isBinary()) os << os.END_BRACKET << std::endl;
+    if(!os.isBinary()) os << os.END_BRACKET << osgDB::OutputStream::Endl{};
 
     return true;
 }

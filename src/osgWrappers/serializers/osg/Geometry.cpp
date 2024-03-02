@@ -49,15 +49,15 @@ static void writeArray( osgDB::OutputStream& os, const osg::Array* array)
 {
     os << os.PROPERTY("Array") << (array!=0);
     if ( array!=0 ) os << array;
-    else os << std::endl;
+    else os << osgDB::OutputStream::Endl{};
 
     const osg::IndexArray* indices = (array!=0) ? dynamic_cast<const osg::IndexArray*>(array->getUserData()) : 0;
     os << os.PROPERTY("Indices") << (indices!=0);
     if ( indices!=0 ) os << indices;
-    else os << std::endl;
+    else os << osgDB::OutputStream::Endl{};
 
-    os << os.PROPERTY("Binding"); writeAttributeBinding(os, osg::getBinding(array)); os << std::endl;
-    os << os.PROPERTY("Normalize") << ((array!=0 && array->getNormalize()) ? 1:0) << std::endl;
+    os << os.PROPERTY("Binding"); writeAttributeBinding(os, osg::getBinding(array)); os << osgDB::OutputStream::Endl{};
+    os << os.PROPERTY("Normalize") << ((array!=0 && array->getNormalize()) ? 1:0) << osgDB::OutputStream::Endl{};
 }
 
 #define ADD_ARRAYDATA_FUNCTIONS( ORIGINAL_PROP, PROP ) \
@@ -71,9 +71,9 @@ static void writeArray( osgDB::OutputStream& os, const osg::Array* array)
         return true; \
     } \
     static bool write##ORIGINAL_PROP( osgDB::OutputStream& os, const osg::Geometry& geom ) { \
-        os << os.BEGIN_BRACKET << std::endl; \
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; \
         writeArray(os, geom.get##PROP()); \
-        os << os.END_BRACKET << std::endl; \
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 
@@ -98,13 +98,13 @@ ADD_ARRAYDATA_FUNCTIONS( FogCoordData, FogCoordArray )
     } \
     static bool write##ORIGINAL_PROP( osgDB::OutputStream& os, const osg::Geometry& geom ) { \
         const osg::Geometry::ArrayList& LISTNAME = geom.get##LISTNAME(); \
-        os.writeSize(LISTNAME.size()); os << os.BEGIN_BRACKET << std::endl; \
+        os.writeSize(LISTNAME.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; \
         for ( osg::Geometry::ArrayList::const_iterator itr=LISTNAME.begin(); \
               itr!=LISTNAME.end(); ++itr ) { \
-            os << os.PROPERTY("Data") << os.BEGIN_BRACKET << std::endl; \
-            writeArray(os, itr->get()); os << os.END_BRACKET << std::endl; \
+            os << os.PROPERTY("Data") << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; \
+            writeArray(os, itr->get()); os << os.END_BRACKET << osgDB::OutputStream::Endl{}; \
         } \
-        os << os.END_BRACKET << std::endl; \
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 

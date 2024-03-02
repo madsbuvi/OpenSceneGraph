@@ -23,12 +23,12 @@ static bool readImages( osgDB::InputStream& is, osg::Texture2DArray& tex )
 static bool writeImages( osgDB::OutputStream& os, const osg::Texture2DArray& tex )
 {
     unsigned int size = tex.getNumImages();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << tex.getImage(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

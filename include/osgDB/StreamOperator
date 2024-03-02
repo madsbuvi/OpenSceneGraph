@@ -49,6 +49,7 @@ public:
     virtual void writeString( const std::string& s ) = 0;
     virtual void writeStream( std::ostream& (*fn)(std::ostream&) ) = 0;
     virtual void writeBase( std::ios_base& (*fn)(std::ios_base&) ) = 0;
+    virtual void writeEndl() = 0;
 
     virtual void writeGLenum( const ObjectGLenum& value ) = 0;
     virtual void writeProperty( const ObjectProperty& prop ) = 0;
@@ -59,21 +60,6 @@ public:
     virtual void flush() { _out->flush(); }
 
 protected:
-    // Return true if the manipulator is std::endl
-    bool isEndl( std::ostream& (*fn)(std::ostream&) )
-    {
-#if defined (__sun) || (defined _WIN32 && !defined OSG_LIBRARY_STATIC)
-        // What a mess, but solaris does not like taking the address below
-        // windows std::endl is a template with different adresses in different dll's
-        std::stringstream ss;
-        ss << fn;
-        std::string s = ss.str();
-        return !s.empty() && s[0] == '\n';
-#else
-        return fn==static_cast<std::ostream& (*)(std::ostream&)>(std::endl);
-#endif
-    }
-
     std::ostream* _out;
     osgDB::OutputStream* _outputStream;
     bool _supportBinaryBrackets;

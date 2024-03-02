@@ -18,7 +18,7 @@ static bool writeAzimRange( osgDB::OutputStream& os, const osgSim::AzimElevation
 {
     float minAzimuth, maxAzimuth, fadeAngle;
     sector.getAzimuthRange( minAzimuth, maxAzimuth, fadeAngle );
-    os << minAzimuth << maxAzimuth << fadeAngle << std::endl;
+    os << minAzimuth << maxAzimuth << fadeAngle << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -35,7 +35,7 @@ static bool readElevationRange( osgDB::InputStream& is, osgSim::AzimElevationSec
 
 static bool writeElevationRange( osgDB::OutputStream& os, const osgSim::AzimElevationSector& sector )
 {
-    os << sector.getMinElevation() << sector.getMaxElevation() << sector.getFadeAngle() << std::endl;
+    os << sector.getMinElevation() << sector.getMaxElevation() << sector.getFadeAngle() << osgDB::OutputStream::Endl{};
     return true;
 }
 

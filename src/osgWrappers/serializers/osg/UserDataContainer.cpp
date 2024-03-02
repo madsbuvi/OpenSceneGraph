@@ -20,9 +20,9 @@ static bool readUDC_UserData( osgDB::InputStream& is, osg::DefaultUserDataContai
 
 static bool writeUDC_UserData( osgDB::OutputStream& os, const osg::DefaultUserDataContainer& udc )
 {
-    os << os.BEGIN_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     os.writeObject(dynamic_cast<const osg::Object*>(udc.getUserData()));
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -48,14 +48,14 @@ static bool readUDC_Descriptions( osgDB::InputStream& is, osg::DefaultUserDataCo
 static bool writeUDC_Descriptions( osgDB::OutputStream& os, const osg::DefaultUserDataContainer& udc )
 {
     const osg::UserDataContainer::DescriptionList& slist = udc.getDescriptions();
-    os.writeSize(slist.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(slist.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::UserDataContainer::DescriptionList::const_iterator itr=slist.begin();
           itr!=slist.end(); ++itr )
     {
         os.writeWrappedString( *itr );
-        os << std::endl;
+        os << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -80,12 +80,12 @@ static bool readUDC_UserObjects( osgDB::InputStream& is, osg::DefaultUserDataCon
 static bool writeUDC_UserObjects( osgDB::OutputStream& os, const osg::DefaultUserDataContainer& udc )
 {
     unsigned int numObjects = udc.getNumUserObjects();
-    os.writeSize(numObjects); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(numObjects); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<numObjects; ++i )
     {
         os << udc.getUserObject(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
