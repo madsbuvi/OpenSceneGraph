@@ -31,7 +31,7 @@
 // Current version: 1.00 BETA 1 (27/08/2002)
 //
 // Comment: Only works with DXTC mode supported by OpenGL.
-//          (currently: DXT1/DXT3/DXT5)
+//          (currently: DXT1/DXT3/DXT5/RGTC1/RGTC2)
 //
 // History: -
 //
@@ -77,6 +77,8 @@ namespace dxtc_tool {
 // C-like function wrappers
 bool isDXTC(GLenum pixelFormat);
 
+bool isRGTC(GLenum pixelFormat);
+
 bool VerticalFlip(size_t Width, size_t Height, GLenum Format, void * pPixels);
 
 bool isCompressedImageTranslucent(size_t Width, size_t Height, GLenum Format, void * pPixels);
@@ -108,6 +110,8 @@ protected:
     inline bool DXT1() const;
     inline bool DXT3() const;
     inline bool DXT5() const;
+    inline bool RGTC1() const;
+    inline bool RGTC2() const;
     inline bool OpenGLSize() const;
     inline bool SupportedFormat() const;
 
@@ -115,6 +119,8 @@ protected:
     void VFlip_DXT1() const;
     void VFlip_DXT3() const;
     void VFlip_DXT5() const;
+    void VFlip_RGTC1() const;
+    void VFlip_RGTC2() const;
 
     // Block vertical flipping functions
     inline void BVF_Color_H2(void * const pBlock) const;                            // V. flip one color block with its virtual height == 2
@@ -126,6 +132,7 @@ protected:
     inline void BVF_Alpha_DXT5_H2(void * const pBlock) const;                        // V. flip one alpha (DXT5) block with its virtual height == 2
     inline void BVF_Alpha_DXT5_H4(void * const pBlock) const;                        // V. flip one alpha (DXT5) block with its virtual height == 4
     inline void BVF_Alpha_DXT5(void * const pBlock1, void * const pBlock2) const;    // V. flip and swap two alpha (DXT5) blocks, with their virtual height == 4
+    inline void BVF_Color_RGTC2(void * const pBlock1, void * const pBlock2) const;    // V. flip and swap two red-green (RGTC2) blocks, with their virtual height == 4
 
     // Block localization functions
     inline void * GetBlock(size_t i, size_t j, size_t BlockSize) const;
@@ -134,6 +141,8 @@ protected:
     static const size_t BSIZE_DXT1;
     static const size_t BSIZE_DXT3;
     static const size_t BSIZE_DXT5;
+    static const size_t BSIZE_RGTC1;
+    static const size_t BSIZE_RGTC2;
     static const size_t BSIZE_ALPHA_DXT3;
     static const size_t BSIZE_ALPHA_DXT5;
 
@@ -162,6 +171,20 @@ inline bool isDXTC(GLenum pixelFormat)
         case(GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT1_EXT):
         case(GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT3_EXT):
         case(GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT):
+            return true;
+        default:
+            return false;
+    }
+}
+
+inline bool isRGTC(GLenum pixelFormat)
+{
+    switch(pixelFormat)
+    {
+        case(GL_COMPRESSED_RED_RGTC1_EXT):
+        case(GL_COMPRESSED_SIGNED_RED_RGTC1_EXT):
+        case(GL_COMPRESSED_RED_GREEN_RGTC2_EXT):
+        case(GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT):
             return true;
         default:
             return false;
@@ -197,9 +220,17 @@ inline bool dxtc_pixels::DXT5() const {
     return ((m_Format == GL_COMPRESSED_RGBA_S3TC_DXT5_EXT) || (m_Format == GL_COMPRESSED_SRGB_ALPHA_S3TC_DXT5_EXT));
 }
 
+inline bool dxtc_pixels::RGTC1() const {
+    return ((m_Format == GL_COMPRESSED_RED_RGTC1_EXT) || (m_Format == GL_COMPRESSED_SIGNED_RED_RGTC1_EXT));
+}
+
+inline bool dxtc_pixels::RGTC2() const {
+    return ((m_Format == GL_COMPRESSED_RED_GREEN_RGTC2_EXT) || (m_Format == GL_COMPRESSED_SIGNED_RED_GREEN_RGTC2_EXT));
+}
+
 
 inline bool dxtc_pixels::SupportedFormat() const {
-    return (DXT1() || DXT3() || DXT5());
+    return (DXT1() || DXT3() || DXT5() || RGTC1() || RGTC2());
 }
 
 
@@ -314,6 +345,29 @@ inline void dxtc_pixels::BVF_Alpha_DXT5(void * const pBlock1, void * const pBloc
 
     pB1[0] = TmpQWord2;
     pB2[0] = TmpQWord1;
+}
+
+
+inline void dxtc_pixels::BVF_Color_RGTC2(void * const pBlock1, void * const pBlock2) const {
+    dxtc_int64 * pB1 = (dxtc_int64 * ) pBlock1;
+    dxtc_int64 * pB2 = (dxtc_int64 * ) pBlock2;
+
+    for (int i = 0; i < 2; i++) {
+        dxtc_int64 TmpQWord1 = (pB1[i] & HEX_0x000000000000FFFF);
+        TmpQWord1 |= (pB1[i] & HEX_0x000000000FFF0000) << 36;
+        TmpQWord1 |= (pB1[i] & HEX_0x000000FFF0000000) << 12;
+        TmpQWord1 |= (pB1[i] & HEX_0x000FFF0000000000) >> 12;
+        TmpQWord1 |= (pB1[i] & HEX_0xFFF0000000000000) >> 36;
+
+        dxtc_int64 TmpQWord2 = (pB2[i] & HEX_0x000000000000FFFF);
+        TmpQWord2 |= (pB2[i] & HEX_0x000000000FFF0000) << 36;
+        TmpQWord2 |= (pB2[i] & HEX_0x000000FFF0000000) << 12;
+        TmpQWord2 |= (pB2[i] & HEX_0x000FFF0000000000) >> 12;
+        TmpQWord2 |= (pB2[i] & HEX_0xFFF0000000000000) >> 36;
+
+        pB1[i] = TmpQWord2;
+        pB2[i] = TmpQWord1;
+    }
 }
 
 
