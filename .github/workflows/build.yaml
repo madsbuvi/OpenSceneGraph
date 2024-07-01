@@ -1,6 +1,8 @@
 name: Build
 
-on: push
+on:
+- push
+- pull_request
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -62,7 +64,6 @@ jobs:
         -D OSG_MSVC_VERSIONED_DLL=OFF
         -D OSG_DETERMINE_WIN_VERSION=OFF
         -D OSG_FIND_3RD_PARTY_DEPS=OFF
-        -D OSG_USE_UTF8_FILENAME=ON
         -D BUILD_OSG_PLUGINS_BY_DEFAULT=OFF
         -D BUILD_OSG_PLUGIN_OSG=ON
         -D BUILD_OSG_PLUGIN_DDS=ON
