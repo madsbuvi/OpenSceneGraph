@@ -193,49 +193,49 @@ OutputStream& OutputStream::operator<<( const osg::BoundingSphered& bs)
 #if 0
 OutputStream& OutputStream::operator<<( const osg::Matrixf& mat )
 {
-    *this << PROPERTY("Matrixf")<<BEGIN_BRACKET << std::endl;
+    *this << PROPERTY("Matrixf")<<BEGIN_BRACKET << Endl{};
     for ( int r=0; r<4; ++r )
     {
         *this << mat(r, 0) << mat(r, 1)
-              << mat(r, 2) << mat(r, 3) << std::endl;
+              << mat(r, 2) << mat(r, 3) << Endl{};
     }
-    *this << END_BRACKET << std::endl;
+    *this << END_BRACKET << Endl{};
     return *this;
 }
 
 OutputStream& OutputStream::operator<<( const osg::Matrixd& mat )
 {
-    *this << PROPERTY("Matrixd")<<BEGIN_BRACKET << std::endl;
+    *this << PROPERTY("Matrixd")<<BEGIN_BRACKET << Endl{};
     for ( int r=0; r<4; ++r )
     {
         *this << mat(r, 0) << mat(r, 1)
-              << mat(r, 2) << mat(r, 3) << std::endl;
+              << mat(r, 2) << mat(r, 3) << Endl{};
     }
-    *this << END_BRACKET << std::endl;
+    *this << END_BRACKET << Endl{};
     return *this;
 }
 #else
 OutputStream& OutputStream::operator<<( const osg::Matrixf& mat )
 {
-    *this << BEGIN_BRACKET << std::endl;
+    *this << BEGIN_BRACKET << Endl{};
     for ( int r=0; r<4; ++r )
     {
         *this << (double)mat(r, 0) << (double)mat(r, 1)
-              << (double)mat(r, 2) << (double)mat(r, 3) << std::endl;
+              << (double)mat(r, 2) << (double)mat(r, 3) << Endl{};
     }
-    *this << END_BRACKET << std::endl;
+    *this << END_BRACKET << Endl{};
     return *this;
 }
 
 OutputStream& OutputStream::operator<<( const osg::Matrixd& mat )
 {
-    *this << BEGIN_BRACKET << std::endl;
+    *this << BEGIN_BRACKET << Endl{};
     for ( int r=0; r<4; ++r )
     {
         *this << mat(r, 0) << mat(r, 1)
-              << mat(r, 2) << mat(r, 3) << std::endl;
+              << mat(r, 2) << mat(r, 3) << Endl{};
     }
-    *this << END_BRACKET << std::endl;
+    *this << END_BRACKET << Endl{};
     return *this;
 }
 #endif
@@ -249,7 +249,7 @@ void OutputStream::writeArray( const osg::Array* a )
     *this << PROPERTY("ArrayID") << id;
     if ( !newID )  // Shared array
     {
-        *this << std::endl;
+        *this << Endl{};
         return;
     }
 
@@ -408,7 +408,7 @@ void OutputStream::writePrimitiveSet( const osg::PrimitiveSet* p )
             const osg::DrawArrays* da = static_cast<const osg::DrawArrays*>(p);
             *this << MAPPEE(PrimitiveType, da->getMode());
             if (_targetFileVersion > 96) *this << da->getNumInstances();
-            *this << da->getFirst() << da->getCount() << std::endl;
+            *this << da->getFirst() << da->getCount() << Endl{};
         }
         break;
     case osg::PrimitiveSet::DrawArrayLengthsPrimitiveType:
@@ -463,9 +463,9 @@ void OutputStream::writeImage( const osg::Image* img )
     bool newID = false;
     unsigned int id = findOrCreateObjectID( img, newID );
 
-    if (_targetFileVersion > 94) *this << PROPERTY("ClassName") << name << std::endl;   // Write object name
+    if (_targetFileVersion > 94) *this << PROPERTY("ClassName") << name << Endl{};   // Write object name
 
-    *this << PROPERTY("UniqueID") << id << std::endl;      // Write image ID
+    *this << PROPERTY("UniqueID") << id << Endl{};      // Write image ID
     if ( getException() ) return;
 
     if (newID)
@@ -509,11 +509,11 @@ void OutputStream::writeImage( const osg::Image* img )
             }
         }
 
-        *this << PROPERTY("FileName"); writeWrappedString(imageFileName); *this << std::endl;
+        *this << PROPERTY("FileName"); writeWrappedString(imageFileName); *this << Endl{};
         *this << PROPERTY("WriteHint") << (int)img->getWriteHint();
         if ( getException() ) return;
 
-        *this << decision << std::endl;
+        *this << decision << Endl{};
 
         switch ( decision )
         {
@@ -558,17 +558,17 @@ void OutputStream::writeImage( const osg::Image* img )
                     if (r<1) r=1;
                 }
             } else { // ASCII
-                *this << PROPERTY("Origin") << img->getOrigin() << std::endl;  // _origin
-                *this << PROPERTY("Size") << img->s() << img->t() << img->r() << std::endl; // _s & _t & _r
-                *this << PROPERTY("InternalTextureFormat") << img->getInternalTextureFormat() << std::endl;  // _internalTextureFormat
-                *this << PROPERTY("PixelFormat") << img->getPixelFormat() << std::endl;  // _pixelFormat
-                *this << PROPERTY("DataType") << img->getDataType() << std::endl;  // _dataType
-                *this << PROPERTY("Packing") << img->getPacking() << std::endl;  // _packing
-                *this << PROPERTY("AllocationMode") << img->getAllocationMode() << std::endl;  // _allocationMode
+                *this << PROPERTY("Origin") << img->getOrigin() << Endl{};  // _origin
+                *this << PROPERTY("Size") << img->s() << img->t() << img->r() << Endl{}; // _s & _t & _r
+                *this << PROPERTY("InternalTextureFormat") << img->getInternalTextureFormat() << Endl{};  // _internalTextureFormat
+                *this << PROPERTY("PixelFormat") << img->getPixelFormat() << Endl{};  // _pixelFormat
+                *this << PROPERTY("DataType") << img->getDataType() << Endl{};  // _dataType
+                *this << PROPERTY("Packing") << img->getPacking() << Endl{};  // _packing
+                *this << PROPERTY("AllocationMode") << img->getAllocationMode() << Endl{};  // _allocationMode
 
                 // _data
                 *this << PROPERTY("Data") << img->getNumMipmapLevels();
-                *this << BEGIN_BRACKET << std::endl;
+                *this << BEGIN_BRACKET << Endl{};
 
                 Base64encoder e;
                 for(osg::Image::DataIterator img_itr(img); img_itr.valid(); ++img_itr)
@@ -581,7 +581,7 @@ void OutputStream::writeImage( const osg::Image* img )
                     writeWrappedString(encodedData);
                 }
 
-                *this << END_BRACKET << std::endl;
+                *this << END_BRACKET << Endl{};
             }
             break;
         case IMAGE_INLINE_FILE:
@@ -654,14 +654,14 @@ void OutputStream::writeImage( const osg::Image* img )
         writeObjectFields( img, "osg::Object" );
     }
 
-    // *this << END_BRACKET << std::endl;
+    // *this << END_BRACKET << Endl{};
 }
 
 void OutputStream::writeObject( const osg::Object* obj )
 {
     if ( !obj )
     {
-        *this << std::string("NULL") << std::endl;  // Write NULL token.
+        *this << std::string("NULL") << Endl{};  // Write NULL token.
         return;
     }
 
@@ -671,8 +671,8 @@ void OutputStream::writeObject( const osg::Object* obj )
     bool newID = false;
     unsigned int id = findOrCreateObjectID( obj, newID );
 
-    *this << name << BEGIN_BRACKET << std::endl;       // Write object name
-    *this << PROPERTY("UniqueID") << id << std::endl;  // Write object ID
+    *this << name << BEGIN_BRACKET << Endl{};       // Write object name
+    *this << PROPERTY("UniqueID") << id << Endl{};  // Write object ID
     if ( getException() ) return;
 
     if (newID)
@@ -680,7 +680,7 @@ void OutputStream::writeObject( const osg::Object* obj )
         writeObjectFields(obj);
     }
 
-    *this << END_BRACKET << std::endl;
+    *this << END_BRACKET << Endl{};
 }
 
 void OutputStream::writeObjectFields( const osg::Object* obj )
@@ -836,19 +836,19 @@ void OutputStream::start( OutputIterator* outIterator, OutputStream::WriteType t
         default: break;
         }
 
-        *this << typeString << std::endl;
-        *this << PROPERTY("#Version") << (unsigned int)OPENSCENEGRAPH_SOVERSION << std::endl;
+        *this << typeString << Endl{};
+        *this << PROPERTY("#Version") << (unsigned int)OPENSCENEGRAPH_SOVERSION << Endl{};
         *this << PROPERTY("#Generator") << std::string("OpenSceneGraph")
-              << std::string(osgGetVersion()) << std::endl;
+              << std::string(osgGetVersion()) << Endl{};
         if ( _domainVersionMap.size()>0 )
         {
             for ( VersionMap::iterator itr=_domainVersionMap.begin();
                   itr!=_domainVersionMap.end(); ++itr )
             {
-                *this << PROPERTY("#CustomDomain") << itr->first << itr->second << std::endl;
+                *this << PROPERTY("#CustomDomain") << itr->first << itr->second << Endl{};
             }
         }
-        *this << std::endl;
+        *this << Endl{};
     }
     _fields.pop_back();
 }
@@ -943,21 +943,21 @@ void OutputStream::writeArrayImplementation( const T* a, int write_size, unsigne
             {
                 if ( !(i%numInRow) )
                 {
-                    *this << std::endl << (*a)[i];
+                    *this << Endl{} << (*a)[i];
                 }
                 else
                     *this << (*a)[i];
             }
-            *this << std::endl;
+            *this << Endl{};
         }
         else
         {
-            *this << std::endl;
+            *this << Endl{};
             for ( int i=0; i<write_size; ++i )
-                *this << (*a)[i] << std::endl;
+                *this << (*a)[i] << Endl{};
         }
     }
-    *this << END_BRACKET << std::endl;
+    *this << END_BRACKET << Endl{};
 }
 
 unsigned int OutputStream::findOrCreateArrayID( const osg::Array* array, bool& newID )

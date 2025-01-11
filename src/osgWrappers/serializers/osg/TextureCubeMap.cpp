@@ -17,10 +17,10 @@
         const osg::Image* image = tex.getImage(FACE); \
         os << (image!=NULL); \
         if ( image!=NULL ) { \
-            os << os.BEGIN_BRACKET << std::endl << image; \
+            os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{} << image; \
             os << os.END_BRACKET; \
         } \
-        os << std::endl; \
+        os << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 

@@ -28,12 +28,12 @@ static bool readDrawables( osgDB::InputStream& is, osg::Geode& node )
 static bool writeDrawables( osgDB::OutputStream& os, const osg::Geode& node )
 {
     unsigned int size = node.getNumDrawables();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << node.getDrawable(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

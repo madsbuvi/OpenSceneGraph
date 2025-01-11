@@ -21,9 +21,9 @@ static bool readParticleSystem( osgDB::InputStream& is, osgParticle::ParticleEff
 
 static bool writeParticleSystem( osgDB::OutputStream& os, const osgParticle::ParticleEffect& effect )
 {
-    os << os.BEGIN_BRACKET << std::endl;
+    os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     os << effect.getParticleSystem();
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

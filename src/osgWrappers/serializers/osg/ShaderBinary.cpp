@@ -45,12 +45,12 @@ static bool writeData( osgDB::OutputStream& os, const osg::ShaderBinary& sb )
     {
         const unsigned char* data = sb.getData();
         os << (unsigned int)sb.getSize();
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         for ( unsigned int i=0; i<sb.getSize(); ++i )
         {
-            os << std::hex << data[i] << std::dec << std::endl;
+            os << std::hex << data[i] << std::dec << osgDB::OutputStream::Endl{};
         }
-        os << os.END_BRACKET << std::endl;
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     }
     return true;
 }

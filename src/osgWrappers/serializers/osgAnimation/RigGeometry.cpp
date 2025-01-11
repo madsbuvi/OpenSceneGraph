@@ -42,7 +42,7 @@ static bool readInfluenceMap( osgDB::InputStream& is, osgAnimation::RigGeometry&
 static bool writeInfluenceMap( osgDB::OutputStream& os, const osgAnimation::RigGeometry& geom )
 {
     const osgAnimation::VertexInfluenceMap* map = geom.getInfluenceMap();
-    os.writeSize(map->size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(map->size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osgAnimation::VertexInfluenceMap::const_iterator itr=map->begin();
           itr!=map->end(); ++itr )
     {
@@ -52,16 +52,16 @@ static bool writeInfluenceMap( osgDB::OutputStream& os, const osgAnimation::RigG
 
         os << os.PROPERTY("VertexInfluence");
         os.writeWrappedString(name);
-        os.writeSize(vi.size()) ; os << os.BEGIN_BRACKET << std::endl;
+        os.writeSize(vi.size()) ; os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
 
         for ( osgAnimation::VertexInfluence::const_iterator vitr=vi.begin();
               vitr != vi.end(); ++vitr )
         {
-            os << vitr->first << vitr->second << std::endl;
+            os << vitr->first << vitr->second << osgDB::OutputStream::Endl{};
         }
-        os << os.END_BRACKET << std::endl;
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

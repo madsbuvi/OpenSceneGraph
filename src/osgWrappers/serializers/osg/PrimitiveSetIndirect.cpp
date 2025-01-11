@@ -55,7 +55,7 @@ static bool writeDACommands( osgDB::OutputStream& os, const osg::DefaultIndirect
 {
     unsigned int size = node.getNumElements();
     osg::DefaultIndirectCommandDrawArrays& nonconstnode =const_cast<osg::DefaultIndirectCommandDrawArrays&>(node);
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << nonconstnode.count(i);
@@ -63,7 +63,7 @@ static bool writeDACommands( osgDB::OutputStream& os, const osg::DefaultIndirect
         os << nonconstnode.first(i);
         os << nonconstnode.baseInstance(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -103,7 +103,7 @@ static bool writeDECommands( osgDB::OutputStream& os, const osg::DefaultIndirect
 {
     unsigned int size = node.getNumElements();
     osg::DefaultIndirectCommandDrawElements& nonconstnode =const_cast<osg::DefaultIndirectCommandDrawElements&>(node);
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << nonconstnode.count(i);
@@ -112,7 +112,7 @@ static bool writeDECommands( osgDB::OutputStream& os, const osg::DefaultIndirect
         os << nonconstnode.baseVertex(i);
         os << nonconstnode.baseInstance(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

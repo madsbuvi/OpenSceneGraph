@@ -15,7 +15,7 @@ static bool readRateRange( osgDB::InputStream& is, osgParticle::VariableRateCoun
 static bool writeRateRange( osgDB::OutputStream& os, const osgParticle::VariableRateCounter& obj )
 {
     const osgParticle::rangef& range = obj.getRateRange();
-    os << range.minimum << range.maximum << std::endl;
+    os << range.minimum << range.maximum << osgDB::OutputStream::Endl{};
     return true;
 }
 

@@ -19,7 +19,7 @@ static bool readUserCenter( osgDB::InputStream& is, osg::LOD& node )
 
 static bool writeUserCenter( osgDB::OutputStream& os, const osg::LOD& node )
 {
-    os << osg::Vec3d(node.getCenter()) << (double)node.getRadius() << std::endl;
+    os << osg::Vec3d(node.getCenter()) << (double)node.getRadius() << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -45,13 +45,13 @@ static bool readRangeList( osgDB::InputStream& is, osg::LOD& node )
 static bool writeRangeList( osgDB::OutputStream& os, const osg::LOD& node )
 {
     const osg::LOD::RangeList& ranges = node.getRangeList();
-    os.writeSize(ranges.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(ranges.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::LOD::RangeList::const_iterator itr=ranges.begin();
           itr!=ranges.end(); ++itr )
     {
-        os << itr->first << itr->second << std::endl;
+        os << itr->first << itr->second << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

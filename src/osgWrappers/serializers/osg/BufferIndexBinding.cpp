@@ -17,7 +17,7 @@ static bool read##XXX( osgDB::InputStream& is, TYPE& node )\
 }\
 static bool write##XXX( osgDB::OutputStream& os, const TYPE& node )\
 {\
-    unsigned int size = node.get##XXX();    os << size << std::endl;    return true;\
+    unsigned int size = node.get##XXX();    os << size << osgDB::OutputStream::Endl{};    return true;\
 }
 
 GLsizei_ptrSERIALIZER(osg::BufferIndexBinding,Size)

@@ -40,20 +40,20 @@ static bool writeTimeControlPointMap( osgDB::OutputStream& os, const osg::Animat
     os.writeSize(map.size());
     if ( map.size()>0 )
     {
-        os << os.BEGIN_BRACKET << std::endl;
+        os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
         for ( osg::AnimationPath::TimeControlPointMap::const_iterator itr=map.begin();
               itr!=map.end(); ++itr )
         {
             const osg::AnimationPath::ControlPoint& pt = itr->second;
-            os << os.PROPERTY("Time") << itr->first << os.BEGIN_BRACKET << std::endl;
-            os << os.PROPERTY("Position") << pt.getPosition() << std::endl;
-            os << os.PROPERTY("Rotation") << pt.getRotation() << std::endl;
-            os << os.PROPERTY("Scale") << pt.getScale() << std::endl;
-            os << os.END_BRACKET << std::endl;
+            os << os.PROPERTY("Time") << itr->first << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
+            os << os.PROPERTY("Position") << pt.getPosition() << osgDB::OutputStream::Endl{};
+            os << os.PROPERTY("Rotation") << pt.getRotation() << osgDB::OutputStream::Endl{};
+            os << os.PROPERTY("Scale") << pt.getScale() << osgDB::OutputStream::Endl{};
+            os << os.END_BRACKET << osgDB::OutputStream::Endl{};
         }
         os << os.END_BRACKET;
     }
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
     return true;
 }
 

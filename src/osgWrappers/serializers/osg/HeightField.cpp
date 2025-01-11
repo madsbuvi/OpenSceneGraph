@@ -19,7 +19,7 @@ static bool readArea( osgDB::InputStream& is, osg::HeightField& shape )
 
 static bool writeArea( osgDB::OutputStream& os, const osg::HeightField& shape )
 {
-    os << shape.getNumColumns() << shape.getNumRows() << std::endl;
+    os << shape.getNumColumns() << shape.getNumRows() << osgDB::OutputStream::Endl{};
     return true;
 }
 

@@ -37,15 +37,15 @@ static bool readMode( osgDB::InputStream& is, osg::PolygonMode& attr )
 
 static bool writeMode( osgDB::OutputStream& os, const osg::PolygonMode& attr )
 {
-    os << os.PROPERTY("UseFrontAndBack") << attr.getFrontAndBack() << std::endl;
+    os << os.PROPERTY("UseFrontAndBack") << attr.getFrontAndBack() << osgDB::OutputStream::Endl{};
 
     os << os.PROPERTY("Front");
     writeModeValue( os, (int)attr.getMode(osg::PolygonMode::FRONT) );
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
 
     os << os.PROPERTY("Back");
     writeModeValue( os, (int)attr.getMode(osg::PolygonMode::BACK) );
-    os << std::endl;
+    os << osgDB::OutputStream::Endl{};
     return true;
 }
 

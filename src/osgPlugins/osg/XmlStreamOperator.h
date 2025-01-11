@@ -82,35 +82,35 @@ public:
 
     virtual void writeStream( std::ostream& (*fn)(std::ostream&) )
     {
-        if ( isEndl( fn ) )
-        {
-            if ( _readLineType==PROP_LINE || _readLineType==END_BRACKET_LINE )
-            {
-                if ( _hasSubProperty )
-                {
-                    _hasSubProperty = false;
-                    popNode();  // Exit the sub-property element
-                }
-                popNode();  // Exit the property element
-            }
-            else if ( _readLineType==SUB_PROP_LINE )
-            {
-                _hasSubProperty = false;
-                popNode();  // Exit the sub-property element
-                popNode();  // Exit the property element
-            }
-            else if ( _readLineType==TEXT_LINE )
-                addToCurrentNode( fn );
-
-            setLineType( NEW_LINE );
-        }
-        else
-            addToCurrentNode( fn );
+        addToCurrentNode( fn );
     }
 
     virtual void writeBase( std::ios_base& (*fn)(std::ios_base&) )
     {
         _sstream << fn;
+    }
+
+    virtual void writeEndl()
+    {
+        if ( _readLineType==PROP_LINE || _readLineType==END_BRACKET_LINE )
+        {
+            if ( _hasSubProperty )
+            {
+                _hasSubProperty = false;
+                popNode();  // Exit the sub-property element
+            }
+            popNode();  // Exit the property element
+        }
+        else if ( _readLineType==SUB_PROP_LINE )
+        {
+            _hasSubProperty = false;
+            popNode();  // Exit the sub-property element
+            popNode();  // Exit the property element
+        }
+        else if ( _readLineType==TEXT_LINE )
+            addToCurrentNode( std::endl );
+
+        setLineType( NEW_LINE );
     }
 
     virtual void writeGLenum( const osgDB::ObjectGLenum& value )

@@ -25,13 +25,13 @@ static bool readLocalParameters( osgDB::InputStream& is, osg::FragmentProgram& f
 static bool writeLocalParameters( osgDB::OutputStream& os, const osg::FragmentProgram& fp )
 {
     const osg::FragmentProgram::LocalParamList& params = fp.getLocalParameters();
-    os.writeSize(params.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(params.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::FragmentProgram::LocalParamList::const_iterator itr=params.begin();
           itr!=params.end(); ++itr )
     {
-        os << itr->first << osg::Vec4d(itr->second) << std::endl;
+        os << itr->first << osg::Vec4d(itr->second) << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -57,13 +57,13 @@ static bool readMatrices( osgDB::InputStream& is, osg::FragmentProgram& fp )
 static bool writeMatrices( osgDB::OutputStream& os, const osg::FragmentProgram& fp )
 {
     const osg::FragmentProgram::MatrixList& matrices = fp.getMatrices();
-    os.writeSize(matrices.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(matrices.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::FragmentProgram::MatrixList::const_iterator itr=matrices.begin();
           itr!=matrices.end(); ++itr )
     {
-        os << (unsigned int)itr->first << osg::Matrixd(itr->second) << std::endl;
+        os << (unsigned int)itr->first << osg::Matrixd(itr->second) << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

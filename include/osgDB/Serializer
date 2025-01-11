@@ -314,7 +314,7 @@ public:
             if ( _useHex ) { os << std::hex << std::showbase; }
             os << value;
             if ( _useHex ) os << std::dec << std::noshowbase;
-            os << std::endl;
+            os << OutputStream::Endl{};
         }
         return true;
     }
@@ -368,7 +368,7 @@ public:
         }
         else if ( ParentType::_defaultValue!=value )
         {
-            os << os.PROPERTY((ParentType::_name).c_str()) << value << std::endl;
+            os << os.PROPERTY((ParentType::_name).c_str()) << value << OutputStream::Endl{};
         }
         return true;
     }
@@ -419,7 +419,7 @@ public:
         }
         else if ( ParentType::_defaultValue!=value )
         {
-            os << os.PROPERTY((ParentType::_name).c_str()) << value << std::endl;
+            os << os.PROPERTY((ParentType::_name).c_str()) << value << OutputStream::Endl{};
         }
         return true;
     }
@@ -487,7 +487,7 @@ public:
         }
         else if ( ParentType::_defaultValue!=value )
         {
-            os << os.PROPERTY((ParentType::_name).c_str()) << GLENUM(value) << std::endl;
+            os << os.PROPERTY((ParentType::_name).c_str()) << GLENUM(value) << OutputStream::Endl{};
         }
         return true;
     }
@@ -540,7 +540,7 @@ public:
         {
             os << os.PROPERTY((ParentType::_name).c_str());
             os.writeWrappedString( value );
-            os << std::endl;
+            os << OutputStream::Endl{};
         }
         return true;
     }
@@ -614,11 +614,11 @@ public:
             os << os.PROPERTY(_name.c_str()) << hasObject;
             if ( hasObject )
             {
-                os << os.BEGIN_BRACKET << std::endl;
+                os << os.BEGIN_BRACKET << OutputStream::Endl{};
                 os.writeObject( value );
                 os << os.END_BRACKET;
             }
-            os << std::endl;
+            os << OutputStream::Endl{};
         }
         return true;
     }
@@ -691,11 +691,11 @@ public:
             os << os.PROPERTY((ParentType::_name).c_str()) << hasObject;
             if ( hasObject )
             {
-                os << os.BEGIN_BRACKET << std::endl;
+                os << os.BEGIN_BRACKET << OutputStream::Endl{};
                 os.writeImage( value );
                 os << os.END_BRACKET;
             }
-            os << std::endl;
+            os << OutputStream::Endl{};
         }
         return true;
     }
@@ -756,7 +756,7 @@ public:
         }
         else if ( ParentType::_defaultValue!=value )
         {
-            os << os.PROPERTY((ParentType::_name).c_str()) << getString(value) << std::endl;
+            os << os.PROPERTY((ParentType::_name).c_str()) << getString(value) << OutputStream::Endl{};
         }
         return true;
     }
@@ -836,14 +836,14 @@ public:
         }
         else if ( size>0 )
         {
-            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << std::endl;
+            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << OutputStream::Endl{};
             for ( ConstIterator itr=list.begin();
                   itr!=list.end(); ++itr )
             {
                 os << (*itr);
             }
-            os << std::endl;
-            os << os.END_BRACKET << std::endl;
+            os << OutputStream::Endl{};
+            os << os.END_BRACKET << OutputStream::Endl{};
         }
         return true;
     }
@@ -1011,7 +1011,7 @@ public:
         }
         else if ( size>0 )
         {
-            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << std::endl;
+            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << OutputStream::Endl{};
             if (_numElementsOnRow==0)
             {
                 for ( ConstIterator itr=list.begin(); itr!=list.end(); ++itr )
@@ -1023,7 +1023,7 @@ public:
             {
                 for ( ConstIterator itr=list.begin(); itr!=list.end(); ++itr )
                 {
-                    os << (*itr); os << std::endl;
+                    os << (*itr); os << OutputStream::Endl{};
                 }
             }
             else
@@ -1032,12 +1032,12 @@ public:
                 for (ConstIterator itr=list.begin(); itr!=list.end(); ++itr)
                 {
                     os << (*itr);
-                    if (i==0) { os << std::endl; i = _numElementsOnRow-1; }
+                    if (i==0) { os << OutputStream::Endl{}; i = _numElementsOnRow-1; }
                     else --i;
                 }
-                if (i!=_numElementsOnRow) os << std::endl;
+                if (i!=_numElementsOnRow) os << OutputStream::Endl{};
             }
-            os << os.END_BRACKET << std::endl;
+            os << os.END_BRACKET << OutputStream::Endl{};
         }
         return true;
     }
@@ -1165,7 +1165,7 @@ public:
         }
         else if ( size>0 )
         {
-            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << std::endl;
+            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << OutputStream::Endl{};
             if (_numElementsOnRow==0)
             {
                 for ( ConstIterator itr=list.begin(); itr!=list.end(); ++itr )
@@ -1177,7 +1177,7 @@ public:
             {
                 for ( ConstIterator itr=list.begin(); itr!=list.end(); ++itr )
                 {
-                    os << (*itr); os << std::endl;
+                    os << (*itr); os << OutputStream::Endl{};
                 }
             }
             else
@@ -1186,12 +1186,12 @@ public:
                 for (ConstIterator itr=list.begin(); itr!=list.end(); ++itr)
                 {
                     os << (*itr);
-                    if (i==0) { os << std::endl; i = _numElementsOnRow-1; }
+                    if (i==0) { os << OutputStream::Endl{}; i = _numElementsOnRow-1; }
                     else --i;
                 }
-                if (i!=_numElementsOnRow) os << std::endl;
+                if (i!=_numElementsOnRow) os << OutputStream::Endl{};
             }
-            os << os.END_BRACKET << std::endl;
+            os << os.END_BRACKET << OutputStream::Endl{};
         }
         return true;
     }
@@ -1431,12 +1431,12 @@ public:
         }
         else if ( size>0 )
         {
-            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << std::endl;
+            os << os.PROPERTY((_name).c_str()) << size << os.BEGIN_BRACKET << OutputStream::Endl{};
             for ( ConstIterator itr=map.begin(); itr!=map.end(); ++itr )
             {
-                os << itr->first << itr->second; os << std::endl;
+                os << itr->first << itr->second; os << OutputStream::Endl{};
             }
-            os << os.END_BRACKET << std::endl;
+            os << os.END_BRACKET << OutputStream::Endl{};
         }
         return true;
     }
@@ -1531,7 +1531,7 @@ public:
             if ( !maskString.size() )
                 maskString = std::string("NONE|");
             maskString.erase(maskString.size()-1,1);
-            os << maskString << std::endl; //remove last "|"
+            os << maskString << OutputStream::Endl{}; //remove last "|"
         }
         return true;
     }

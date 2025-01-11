@@ -18,7 +18,7 @@ static bool readTileID( osgDB::InputStream& is, osgVolume::VolumeTile& tile )
 static bool writeTileID( osgDB::OutputStream& os, const osgVolume::VolumeTile& tile )
 {
     const osgVolume::TileID& id = tile.getTileID();
-    os << id.level << id.x << id.y << id.z << std::endl;
+    os << id.level << id.x << id.y << id.z << osgDB::OutputStream::Endl{};
     return true;
 }
 

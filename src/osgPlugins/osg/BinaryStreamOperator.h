@@ -78,6 +78,8 @@ public:
 
     virtual void writeBase( std::ios_base& (* /*fn*/)(std::ios_base&) ) {}
 
+    virtual void writeEndl() {}
+
     virtual void writeGLenum( const osgDB::ObjectGLenum& value )
     { GLenum e = value.get(); _out->write((char*)&e, osgDB::GLENUM_SIZE); }
 

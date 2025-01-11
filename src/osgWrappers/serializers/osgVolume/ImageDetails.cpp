@@ -17,7 +17,7 @@ static bool readMatrix( osgDB::InputStream& is, osgVolume::ImageDetails& details
 
 static bool writeMatrix( osgDB::OutputStream& os, const osgVolume::ImageDetails& details )
 {
-    os << *(details.getMatrix()) << std::endl;
+    os << *(details.getMatrix()) << osgDB::OutputStream::Endl{};
     return true;
 }
 

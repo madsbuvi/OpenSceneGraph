@@ -20,7 +20,7 @@ static bool writeArea( osgDB::OutputStream& os, const osg::DrawPixels& drawable 
 {
     unsigned int x, y, w, h;
     drawable.getSubImageDimensions( x, y, w, h );
-    os << x << y << w << h << std::endl;
+    os << x << y << w << h << osgDB::OutputStream::Endl{};
     return true;
 }
 

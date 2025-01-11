@@ -25,13 +25,13 @@ static bool readLocalParameters( osgDB::InputStream& is, osg::VertexProgram& vp 
 static bool writeLocalParameters( osgDB::OutputStream& os, const osg::VertexProgram& vp )
 {
     const osg::VertexProgram::LocalParamList& params = vp.getLocalParameters();
-    os.writeSize(params.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(params.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::VertexProgram::LocalParamList::const_iterator itr=params.begin();
           itr!=params.end(); ++itr )
     {
-        os << itr->first << osg::Vec4d(itr->second) << std::endl;
+        os << itr->first << osg::Vec4d(itr->second) << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -57,13 +57,13 @@ static bool readMatrices( osgDB::InputStream& is, osg::VertexProgram& vp )
 static bool writeMatrices( osgDB::OutputStream& os, const osg::VertexProgram& vp )
 {
     const osg::VertexProgram::MatrixList& matrices = vp.getMatrices();
-    os.writeSize(matrices.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(matrices.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::VertexProgram::MatrixList::const_iterator itr=matrices.begin();
           itr!=matrices.end(); ++itr )
     {
-        os << (unsigned int)itr->first << osg::Matrixd(itr->second) << std::endl;
+        os << (unsigned int)itr->first << osg::Matrixd(itr->second) << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

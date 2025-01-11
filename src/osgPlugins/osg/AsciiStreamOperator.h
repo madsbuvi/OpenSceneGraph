@@ -67,15 +67,18 @@ public:
     virtual void writeStream( std::ostream& (*fn)(std::ostream&) )
     {
         indentIfRequired(); *_out << fn;
-        if ( isEndl( fn ) )
-        {
-            _readyForIndent = true;
-        }
     }
 
     virtual void writeBase( std::ios_base& (*fn)(std::ios_base&) )
     {
         indentIfRequired(); *_out << fn;
+    }
+
+    virtual void writeEndl()
+    {
+        indentIfRequired();
+        *_out << std::endl;
+        _readyForIndent = true;
     }
 
     virtual void writeGLenum( const osgDB::ObjectGLenum& value )

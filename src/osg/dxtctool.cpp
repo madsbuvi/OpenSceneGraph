@@ -1,6 +1,6 @@
 // dxtctool.cpp: implementation of DXTC Tools functions.
 //
-// Copyright (C) 2002 Tanguy Fautré.
+// Copyright (C) 2002 Tanguy FautrÃ©.
 // For conditions of distribution and use,
 // see copyright notice in dxtctool.h
 //
@@ -14,6 +14,8 @@ namespace dxtc_tool {
     const size_t dxtc_pixels::BSIZE_DXT1 = 8;
     const size_t dxtc_pixels::BSIZE_DXT3 = 16;
     const size_t dxtc_pixels::BSIZE_DXT5 = 16;
+    const size_t dxtc_pixels::BSIZE_RGTC1 = 8;
+    const size_t dxtc_pixels::BSIZE_RGTC2 = 16;
     const size_t dxtc_pixels::BSIZE_ALPHA_DXT3 = 8;
     const size_t dxtc_pixels::BSIZE_ALPHA_DXT5 = 8;
 
@@ -68,6 +70,10 @@ bool dxtc_pixels::VFlip() const
         VFlip_DXT3();
     else if (DXT5())
         VFlip_DXT5();
+    else if (RGTC1())
+        VFlip_RGTC1();
+    else if (RGTC2())
+        VFlip_RGTC2();
     else
         return false; // We should never get there
 
@@ -155,6 +161,48 @@ void dxtc_pixels::VFlip_DXT5() const
             }
 }
 
+void dxtc_pixels::VFlip_RGTC1() const
+{
+    if (m_Height == 2)
+        for (size_t j = 0; j < (m_Width + 3) / 4; ++j) {
+            BVF_Alpha_DXT5_H2(((dxtc_int8 * ) m_pPixels) + (j * BSIZE_RGTC1));
+        }
+
+    if (m_Height == 4)
+        for (size_t j = 0; j < (m_Width + 3) / 4; ++j) {
+            BVF_Alpha_DXT5_H4(((dxtc_int8 * ) m_pPixels) + (j * BSIZE_RGTC1));
+        }
+
+    if (m_Height > 4)
+        for (size_t i = 0; i < ((m_Height + 7) / 8); ++i)
+            for (size_t j = 0; j < (m_Width + 3) / 4; ++j) {
+                const size_t TargetRow = ((m_Height + 3) / 4) - (i + 1);
+                BVF_Alpha_DXT5(GetBlock(i, j, BSIZE_RGTC1), GetBlock(TargetRow, j, BSIZE_RGTC1));
+            }
+}
+
+void dxtc_pixels::VFlip_RGTC2() const
+{
+    if (m_Height == 2)
+        for (size_t j = 0; j < (m_Width + 3) / 4; ++j) {
+            BVF_Alpha_DXT5_H2(((dxtc_int8 * ) m_pPixels) + (j * BSIZE_RGTC2));
+            BVF_Alpha_DXT5_H2(((dxtc_int8 * ) m_pPixels) + (j * BSIZE_RGTC2) + BSIZE_RGTC2 / 2);
+        }
+
+    if (m_Height == 4)
+        for (size_t j = 0; j < (m_Width + 3) / 4; ++j) {
+            BVF_Alpha_DXT5_H4(((dxtc_int8 * ) m_pPixels) + (j * BSIZE_RGTC2));
+            BVF_Alpha_DXT5_H4(((dxtc_int8 * ) m_pPixels) + (j * BSIZE_RGTC2) + BSIZE_RGTC2 / 2);
+        }
+
+    if (m_Height > 4)
+        for (size_t i = 0; i < ((m_Height + 7) / 8); ++i)
+            for (size_t j = 0; j < (m_Width + 3) / 4; ++j) {
+                const size_t TargetRow = ((m_Height + 3) / 4) - (i + 1);
+                BVF_Color_RGTC2(GetBlock(i, j, BSIZE_RGTC2), GetBlock(TargetRow, j, BSIZE_RGTC2));
+            }
+}
+
 //
 // Structure of a DXT-1 compressed texture block
 // see page "Opaque and 1-Bit Alpha Textures (Direct3D 9)" on http://msdn.microsoft.com
@@ -182,6 +230,18 @@ struct DXT5TexelsBlock
     unsigned short color_0;     // colors at their
     unsigned short color_1;     // extreme
     unsigned int   texels4x4;   // interpolated colors (2 bits per texel)
+};
+
+struct RGTC1TexelsBlock
+{
+    unsigned char color_0;      // colors at their
+    unsigned char color_1;      // extreme
+    unsigned char color3[6];    // color index values (3 bits per texel)
+};
+
+struct RGTC2TexelsBlock
+{
+    RGTC1TexelsBlock channels[2];
 };
 
 bool isCompressedImageTranslucent(size_t width, size_t height, GLenum format, void * imageData)
@@ -475,6 +535,7 @@ bool CompressedImageGetColor(unsigned char color[4], unsigned int s, unsigned in
         }
         break;
     }
+    // TODO: add RGTC support
     default:
         return false;
     }
@@ -579,6 +640,7 @@ void compressedBlockOrientationConversion(const GLenum format, const unsigned ch
         }
         break;
     }
+    // TODO: add RGTC support
     default:
         return;
     }//switch

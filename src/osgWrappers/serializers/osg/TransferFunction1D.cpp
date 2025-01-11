@@ -27,13 +27,13 @@ static bool readColorMap( osgDB::InputStream& is, osg::TransferFunction1D& func 
 static bool writeColorMap( osgDB::OutputStream& os, const osg::TransferFunction1D& func )
 {
     const osg::TransferFunction1D::ColorMap& map = func.getColorMap();
-    os.writeSize(map.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(map.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osg::TransferFunction1D::ColorMap::const_iterator itr=map.begin();
           itr!=map.end(); ++itr )
     {
-        os << itr->first << itr->second << std::endl;
+        os << itr->first << itr->second << osgDB::OutputStream::Endl{};
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 #endif

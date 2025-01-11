@@ -27,13 +27,13 @@ static bool readStackedTransforms( osgDB::InputStream& is, osgAnimation::UpdateM
 static bool writeStackedTransforms( osgDB::OutputStream& os, const osgAnimation::UpdateMatrixTransform& obj )
 {
     const osgAnimation::StackedTransform& transform = obj.getStackedTransforms();
-    os.writeSize(transform.size()); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(transform.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( osgAnimation::StackedTransform::const_iterator itr=transform.begin();
           itr!=transform.end(); ++itr )
     {
         os << itr->get();
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

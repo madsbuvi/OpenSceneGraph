@@ -18,12 +18,12 @@
     static bool write##PROP( osgDB::OutputStream& os, const osg::Program& attr ) \
     { \
         const osg::Program::TYPE& plist = attr.get##TYPE(); \
-        os.writeSize(plist.size()); os << os.BEGIN_BRACKET << std::endl; \
+        os.writeSize(plist.size()); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{}; \
         for ( osg::Program::TYPE::const_iterator itr=plist.begin(); \
               itr!=plist.end(); ++itr ) { \
-            os << itr->first << itr->second << std::endl; \
+            os << itr->first << itr->second << osgDB::OutputStream::Endl{}; \
         } \
-        os << os.END_BRACKET << std::endl; \
+        os << os.END_BRACKET << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 
@@ -39,7 +39,7 @@ PROGRAM_LIST_FUNC( FragDataBinding, FragDataBindingList, BindFragDataLocation )
         return true; \
     } \
     static bool write##PROP(osgDB::OutputStream& os, const osg::Program& attr) { \
-        os << os.PROPERTY(#NAME) << (int)attr.getParameter(NAME) << std::endl; \
+        os << os.PROPERTY(#NAME) << (int)attr.getParameter(NAME) << osgDB::OutputStream::Endl{}; \
         return true; \
     }
 
@@ -68,12 +68,12 @@ static bool readShaders( osgDB::InputStream& is, osg::Program& attr )
 static bool writeShaders( osgDB::OutputStream& os, const osg::Program& attr )
 {
     unsigned int size = attr.getNumShaders();
-    os.writeSize(size); os << os.BEGIN_BRACKET << std::endl;
+    os.writeSize(size); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for ( unsigned int i=0; i<size; ++i )
     {
         os << attr.getShader(i);
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 // feedBackVaryings
@@ -96,12 +96,12 @@ static bool readFeedBackVaryingsName( osgDB::InputStream& is, osg::Program& attr
 static bool writeFeedBackVaryingsName( osgDB::OutputStream& os, const osg::Program& attr )
 {
 	unsigned int size = attr.getNumTransformFeedBackVaryings();
-	os.writeSize(size); os << os.BEGIN_BRACKET << std::endl;
+	os.writeSize(size); os << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
 	for ( unsigned int i=0; i<size; ++i )
 	{
-		os << attr.getTransformFeedBackVarying(i)<< std::endl;
+		os << attr.getTransformFeedBackVarying(i)<< osgDB::OutputStream::Endl{};
 	}
-	os << os.END_BRACKET << std::endl;
+	os << os.END_BRACKET << osgDB::OutputStream::Endl{};
 	return true;
 }
 // feedBack mode
@@ -118,7 +118,7 @@ static bool readFeedBackMode( osgDB::InputStream& is, osg::Program& attr )
 }
 static bool writeFeedBackMode( osgDB::OutputStream& os, const osg::Program& attr )
 {
-	os << attr.getTransformFeedBackMode()<< std::endl;
+	os << attr.getTransformFeedBackMode()<< osgDB::OutputStream::Endl{};
 	return true;
 }
 // _numGroupsX/Y/Z
@@ -137,7 +137,7 @@ static bool readComputeGroups( osgDB::InputStream& is, osg::Program& attr )
 static bool writeComputeGroups( osgDB::OutputStream& os, const osg::Program& attr )
 {
     GLint numX = 0, numY = 0, numZ = 0;
-    os << numX << numY << numZ << std::endl;
+    os << numX << numY << numZ << osgDB::OutputStream::Endl{};
     return true;
 }
 
@@ -163,14 +163,14 @@ static bool readBindUniformBlock( osgDB::InputStream& is, osg::Program& p )
 static bool writeBindUniformBlock( osgDB::OutputStream& os, const osg::Program& p )
 {
     unsigned int size = p.getUniformBlockBindingList().size();
-    os << size << os.BEGIN_BRACKET << std::endl;
+    os << size << os.BEGIN_BRACKET << osgDB::OutputStream::Endl{};
     for(osg::Program::UniformBlockBindingList::const_iterator bbit = p.getUniformBlockBindingList().begin();
         bbit != p.getUniformBlockBindingList().end(); ++bbit)
     {
         os << bbit->first;
         os << bbit->second;
     }
-    os << os.END_BRACKET << std::endl;
+    os << os.END_BRACKET << osgDB::OutputStream::Endl{};
     return true;
 }
 

@@ -1826,13 +1826,14 @@ void Image::flipVertical()
     unsigned int rowStep = getRowStepInBytes();
 
     const bool dxtc(dxtc_tool::isDXTC(_pixelFormat));
+    const bool rgtc(dxtc_tool::isRGTC(_pixelFormat));
     if (_mipmapData.empty())
     {
         // no mipmaps,
         // so we can safely handle 3d textures
         for(int r=0;r<_r;++r)
         {
-            if (dxtc)
+            if (dxtc || rgtc)
             {
                 if (!dxtc_tool::VerticalFlip(_s,_t,_pixelFormat,data(0,0,r)))
                 {
@@ -1852,7 +1853,7 @@ void Image::flipVertical()
     }
     else if (_r==1)
     {
-        if (dxtc)
+        if (dxtc || rgtc)
         {
             if (!dxtc_tool::VerticalFlip(_s,_t,_pixelFormat,_data))
             {
@@ -1879,7 +1880,7 @@ void Image::flipVertical()
             t >>= 1;
             if (s==0) s=1;
             if (t==0) t=1;
-            if (dxtc)
+            if (dxtc || rgtc)
             {
                 if (!dxtc_tool::VerticalFlip(s,t,_pixelFormat,_data+_mipmapData[i]))
                 {
